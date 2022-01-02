@@ -35,7 +35,7 @@ const Slider: FC<SliderProps> = ({ images }) => {
                 effect="opacity"
                 alt=""
               />
-              <h1 className="group-hover:text-primary transition-none duration-300 pb-1 px-2 m-0 text-lg max-w-full whitespace-nowrap overflow-hidden text-ellipsis">
+              <h1 className="group-hover:text-primary transition duration-300 pb-1 px-2 m-0 text-lg max-w-full whitespace-nowrap overflow-hidden text-ellipsis">
                 {item.title}
               </h1>
             </div>

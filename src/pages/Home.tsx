@@ -13,6 +13,7 @@ import useSWR from "swr";
 const Home: FC = () => {
   const { data, error } = useSWR("home", () => getHome(), {
     revalidateOnFocus: false,
+    errorRetryInterval: 10,
   });
 
   return (
@@ -41,7 +42,10 @@ const Home: FC = () => {
                     ?.recommendContentVOList.map((item) => ({
                       title: item.title,
                       image: item.imageUrl,
-                      link: "",
+                      link:
+                        item.jumpAddress.split("type=").slice(-1)[0] === "0"
+                          ? `/movie/${item.id}`
+                          : `/tv/${item.id}`,
                     })) || []
                 }
               />
@@ -58,7 +62,10 @@ const Home: FC = () => {
                     images={section.recommendContentVOList.map((item) => ({
                       title: item.title,
                       image: resizeImage(item.imageUrl, "200"),
-                      link: "",
+                      link:
+                        item.jumpAddress.split("type=").slice(-1)[0] === "0"
+                          ? `/movie/${item.id}`
+                          : `/tv/${item.id}`,
                     }))}
                   />
                 </div>

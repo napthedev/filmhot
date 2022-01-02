@@ -1,6 +1,8 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import { FC } from "react";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import { Link } from "react-router-dom";
 import { Navigation } from "swiper";
 
 interface SliderProps {
@@ -22,18 +24,19 @@ const BannerSlider: FC<SliderProps> = ({ images }) => {
     >
       {images.map((item) => (
         <SwiperSlide key={item.image}>
-          <div className="relative">
+          <Link to={item.link} className="relative">
             <div className="w-full h-0 pb-[42%] relative">
-              <img
+              <LazyLoadImage
                 className="absolute top-0 left-0 w-full h-full object-cover opacity-75"
                 src={item.image}
                 alt=""
+                effect="opacity"
               />
             </div>
             <h1 className="absolute left-10 bottom-10 text-3xl max-w-full whitespace-nowrap overflow-hidden text-ellipsis">
               {item.title}
             </h1>
-          </div>
+          </Link>
         </SwiperSlide>
       ))}
     </Swiper>

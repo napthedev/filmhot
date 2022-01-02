@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import { Link } from "react-router-dom";
 import Skeleton from "../Skeleton";
 import { getTopSearched } from "../../services/home";
 import { resizeImage } from "../../shared/constants";
@@ -26,7 +27,11 @@ const TopSearches: FC = () => {
   return (
     <div className="flex flex-col gap-3">
       {data.map((top) => (
-        <div className="flex gap-2" key={top.id}>
+        <Link
+          to={top.domainType === 0 ? `/movie/${top.id}` : `/tv/${top.id}`}
+          className="flex gap-2 hover:brightness-75 transition duration-300"
+          key={top.id}
+        >
           <div className="w-[100px] h-[60px] flex-shrink-0">
             <LazyLoadImage
               className="w-[100px] h-[60px] object-cover rounded-lg"
@@ -41,7 +46,7 @@ const TopSearches: FC = () => {
           <div>
             <h1>{top.title}</h1>
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   );
