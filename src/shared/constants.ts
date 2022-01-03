@@ -18,7 +18,7 @@ export const SIDEBAR_LINKS = [
       {
         name: "Explore",
         link: "/explore",
-        icon: "tv",
+        icon: "desktop",
       },
     ],
   },
@@ -33,6 +33,7 @@ export const SIDEBAR_LINKS = [
       },
       {
         auth: true,
+        name: "Auth",
       },
     ],
   },

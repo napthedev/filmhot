@@ -11,10 +11,7 @@ import { resizeImage } from "../shared/constants";
 import useSWR from "swr";
 
 const Home: FC = () => {
-  const { data, error } = useSWR("home", () => getHome(), {
-    revalidateOnFocus: false,
-    errorRetryInterval: 10,
-  });
+  const { data, error } = useSWR("home", () => getHome());
 
   return (
     <div className="flex">
@@ -39,14 +36,20 @@ const Home: FC = () => {
                 images={
                   data
                     .find((item) => item.homeSectionType === "BANNER")
-                    ?.recommendContentVOList.map((item) => ({
-                      title: item.title,
-                      image: item.imageUrl,
-                      link:
-                        item.jumpAddress.split("type=").slice(-1)[0] === "0"
-                          ? `/movie/${item.id}`
-                          : `/tv/${item.id}`,
-                    })) || []
+                    ?.recommendContentVOList.map((item) => {
+                      const searchParams = new URLSearchParams(
+                        new URL(item.jumpAddress).search
+                      );
+
+                      return {
+                        title: item.title,
+                        image: item.imageUrl,
+                        link:
+                          searchParams.get("type") === "0"
+                            ? `/movie/${searchParams.get("id")}`
+                            : `/tv/${searchParams.get("id")}`,
+                      };
+                    }) || []
                 }
               />
             </div>
@@ -59,14 +62,20 @@ const Home: FC = () => {
                   </h1>
 
                   <SectionSlider
-                    images={section.recommendContentVOList.map((item) => ({
-                      title: item.title,
-                      image: resizeImage(item.imageUrl, "200"),
-                      link:
-                        item.jumpAddress.split("type=").slice(-1)[0] === "0"
-                          ? `/movie/${item.id}`
-                          : `/tv/${item.id}`,
-                    }))}
+                    images={section.recommendContentVOList.map((item) => {
+                      const searchParams = new URLSearchParams(
+                        new URL(item.jumpAddress).search
+                      );
+
+                      return {
+                        title: item.title,
+                        image: resizeImage(item.imageUrl, "200"),
+                        link:
+                          searchParams.get("type") === "0"
+                            ? `/movie/${searchParams.get("id")}`
+                            : `/tv/${searchParams.get("id")}`,
+                      };
+                    })}
                   />
                 </div>
               ))}

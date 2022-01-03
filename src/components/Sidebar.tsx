@@ -27,7 +27,7 @@ const Sidebar: FC = () => {
                     <div
                       className={`flex items-center cursor-pointer gap-2 transition text-gray-400 hover:text-gray-300`}
                     >
-                      <i className={`bx bx-log-out text-2xl`}></i>
+                      <i className={`fas fa-sign-out-alt text-xl`}></i>
                       <p>Sign Out</p>
                     </div>
                   ) : (
@@ -40,11 +40,7 @@ const Sidebar: FC = () => {
                       }`}
                       key={item.link}
                     >
-                      <i
-                        className={`bx ${
-                          location.pathname === item.link ? "bxs" : "bx"
-                        }-${item.icon} text-2xl`}
-                      ></i>
+                      <i className={`fas fa-${item.icon} text-xl`}></i>
                       <p>{item.name}</p>
                     </Link>
                   )}

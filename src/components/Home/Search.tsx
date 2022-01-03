@@ -10,7 +10,7 @@ const Search: FC = () => {
           placeholder="Search..."
         />
         <button className="absolute right-2 top-1/2 -translate-y-1/2">
-          <i className="bx bx-search text-xl"></i>
+          <i className="fas fa-search text-xl"></i>
         </button>
       </form>
     </div>

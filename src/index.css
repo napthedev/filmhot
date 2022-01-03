@@ -25,3 +25,31 @@ body {
 ::-webkit-scrollbar-button {
   @apply hidden;
 }
+
+.slider {
+  @apply h-[6px] bg-[#ffffff91] outline-none rounded-sm appearance-none;
+}
+
+.slider::-webkit-slider-thumb {
+  @apply w-[12px] h-[12px] bg-white cursor-pointer rounded-full appearance-none;
+}
+
+.slider::-moz-range-thumb {
+  @apply w-[12px] h-[12px] bg-white cursor-pointer rounded-full appearance-none;
+}
+
+.volume-container:hover .volume {
+  @apply w-[108px];
+}
+
+.seek-container:hover .seek-ball:after {
+  @apply opacity-100;
+}
+
+[data-tooltips] {
+  @apply relative;
+
+  @apply before:absolute before:content-[attr(data-tooltips)] before:opacity-0 before:transition-all hover:before:opacity-100 before:top-[-20px] hover:before:top-[-36px] hover:before:bg-white before:text-black before:left-1/2 before:-translate-x-1/2 before:rounded-sm before:text-base before:px-2 before:pointer-events-none before:whitespace-nowrap before:w-max;
+
+  @apply after:absolute after:top-[4px] hover:after:top-[-12px] after:border-8 after:border-transparent after:border-t-white after:transition-all after:opacity-0 hover:after:opacity-100 after:left-1/2 after:-translate-x-1/2 after:pointer-events-none;
+}
