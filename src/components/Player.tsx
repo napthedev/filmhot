@@ -17,7 +17,9 @@ interface PlayerProps {
 
 const Player: FC<PlayerProps> = ({ sources, subtitles }) => {
   const [quality, setQuality] = useState(0);
-  const [playbackSpeed, setPlaybackSpeed] = useState(1);
+  const [playbackSpeed, setPlaybackSpeed] = useState(
+    Number(localStorage.getItem("filmhot-speed")) || 1
+  );
   const [paused, setPaused] = useState(true);
   const [onFullScreen, setOnFullScreen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -31,10 +33,13 @@ const Player: FC<PlayerProps> = ({ sources, subtitles }) => {
     Number(localStorage.getItem("filmhot-volume")) || 100
   );
 
+  const [hoverEnabled, setHoverEnabled] = useState(true);
+
   const playerRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const seekRef = useRef<HTMLDivElement>(null);
   const mouseDownRef = useRef<Boolean>(false);
+  const timeoutRef = useRef<any>(null);
 
   const seekTime = (amount: number) => {
     playerRef.current && (playerRef.current.currentTime += amount);
@@ -93,6 +98,8 @@ const Player: FC<PlayerProps> = ({ sources, subtitles }) => {
   useEffect(() => {
     if (!playerRef.current) return;
 
+    localStorage.setItem("filmhot-speed", String(playbackSpeed));
+
     playerRef.current.playbackRate = playbackSpeed;
   }, [playbackSpeed]);
 
@@ -118,6 +125,15 @@ const Player: FC<PlayerProps> = ({ sources, subtitles }) => {
   return (
     <div className="relative w-full h-0 pb-[56.25%]">
       <div
+        onMouseMove={() => {
+          if (timeoutRef.current) clearTimeout(timeoutRef.current);
+
+          setHoverEnabled(true);
+
+          timeoutRef.current = setTimeout(() => {
+            setHoverEnabled(false);
+          }, 2000);
+        }}
         ref={containerRef}
         className="absolute top-0 left-0 w-full h-full flex justify-center items-center group bg-black"
       >
@@ -165,11 +181,9 @@ const Player: FC<PlayerProps> = ({ sources, subtitles }) => {
         )}
 
         <div
-          className={`absolute bottom-0 left-0 w-full h-16 bg-gradient-to-b from-transparent to-[#000000e0] flex flex-col items-stretch text-xl ${
-            paused
-              ? ""
-              : "group-hover:opacity-100 opacity-0 transition duration-300"
-          }`}
+          className={`absolute bottom-0 left-0 w-full h-16 bg-gradient-to-b from-transparent to-[#000000e0] flex flex-col items-stretch text-xl transition duration-300 opacity-0 ${
+            paused ? "!opacity-100" : ""
+          } ${hoverEnabled ? "group-hover:opacity-100" : ""}`}
         >
           <div
             ref={seekRef}
@@ -249,6 +263,9 @@ const Player: FC<PlayerProps> = ({ sources, subtitles }) => {
 
             <div className="flex gap-4 items-center">
               <button
+                data-tooltips={
+                  subtitleIndex >= 0 ? "Disable subtitle" : "Enable subtitle"
+                }
                 onClick={() =>
                   subtitleIndex >= 0
                     ? setSubtitleIndex(-1)
