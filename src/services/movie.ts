@@ -37,8 +37,28 @@ export const getMovieDetail = async (id: string) => {
     }))
     .sort((a, b) => b.quality - a.quality);
 
+  const subtitles = data.episodeVo[0].subtitlingList
+    .map((sub: any) => ({
+      language: sub.language,
+      url: sub.subtitlingUrl,
+      lang: sub.languageAbbr,
+    }))
+    .reduce((acc: any, element: any) => {
+      if (element.lang === "en") {
+        return [element, ...acc];
+      }
+      return [...acc, element];
+    }, [])
+    .reduce((acc: any, element: any) => {
+      if (element.lang === "vi") {
+        return [element, ...acc];
+      }
+      return [...acc, element];
+    }, []);
+
   return {
     data,
     sources,
+    subtitles,
   };
 };

@@ -2,21 +2,27 @@ import { FC, useEffect, useRef, useState } from "react";
 
 import HlsPlayer from "react-hls-player";
 import { formatVideoTime } from "../shared/utils";
+import { subtitleProxy } from "../shared/constants";
 
 interface PlayerProps {
   sources: {
     quality: number;
     url: string;
   }[];
+  subtitles: {
+    language: string;
+    url: string;
+  }[];
 }
 
-const Player: FC<PlayerProps> = ({ sources }) => {
+const Player: FC<PlayerProps> = ({ sources, subtitles }) => {
   const [quality, setQuality] = useState(0);
   const [playbackSpeed, setPlaybackSpeed] = useState(1);
   const [paused, setPaused] = useState(true);
   const [onFullScreen, setOnFullScreen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [settingsActive, setSettingsActive] = useState(false);
+  const [subtitleIndex, setSubtitleIndex] = useState(0);
 
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -116,9 +122,10 @@ const Player: FC<PlayerProps> = ({ sources }) => {
         className="absolute top-0 left-0 w-full h-full flex justify-center items-center group bg-black"
       >
         <HlsPlayer
+          crossOrigin=""
           playsInline
           onClick={handleScreenClicked}
-          className="w-full cursor-pointer"
+          className="w-full h-full cursor-pointer"
           controls={false}
           autoPlay={false}
           playerRef={playerRef}
@@ -130,7 +137,17 @@ const Player: FC<PlayerProps> = ({ sources }) => {
             setCurrentTime(playerRef.current?.currentTime || 0);
             setDuration(playerRef.current?.duration || 0);
           }}
-        />
+        >
+          {subtitleIndex >= 0 && (
+            <track
+              kind="subtitles"
+              srcLang="sub"
+              label="Subtitle"
+              src={subtitleProxy(subtitles[subtitleIndex].url)}
+              default
+            />
+          )}
+        </HlsPlayer>
 
         {loading && !paused && (
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 cursor-pointer">
@@ -231,6 +248,19 @@ const Player: FC<PlayerProps> = ({ sources }) => {
             </div>
 
             <div className="flex gap-4 items-center">
+              <button
+                onClick={() =>
+                  subtitleIndex >= 0
+                    ? setSubtitleIndex(-1)
+                    : setSubtitleIndex(0)
+                }
+              >
+                <i
+                  className={`${
+                    subtitleIndex >= 0 ? "fas" : "far"
+                  } fa-closed-captioning`}
+                ></i>
+              </button>
               <div className="relative">
                 <button
                   onClick={() => setSettingsActive((prev) => !prev)}
@@ -266,6 +296,37 @@ const Player: FC<PlayerProps> = ({ sources }) => {
                     ))}
                   </div>
 
+                  <h1 className="text-lg mt-4">Subtitle</h1>
+
+                  <div className="flex flex-col items-stretch pl-[6px]">
+                    <div>
+                      <button
+                        onClick={() => setSubtitleIndex(-1)}
+                        className={`text-sm relative text-gray-400 ${
+                          subtitleIndex === -1
+                            ? "text-white before:absolute before:left-[-10px] before:top-1/2 before:-translate-y-1/2 before:w-1 before:h-1 before:bg-white before:rounded-full"
+                            : ""
+                        }`}
+                      >
+                        Off
+                      </button>
+                    </div>
+                    {subtitles.map((subtitle, index) => (
+                      <div key={index}>
+                        <button
+                          onClick={() => setSubtitleIndex(index)}
+                          className={`text-sm relative text-gray-400 ${
+                            subtitleIndex === index
+                              ? "text-white before:absolute before:left-[-10px] before:top-1/2 before:-translate-y-1/2 before:w-1 before:h-1 before:bg-white before:rounded-full"
+                              : ""
+                          }`}
+                        >
+                          {subtitle.language}
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+
                   <h1 className="text-lg mt-4">Speed</h1>
 
                   <div className="flex flex-col items-stretch pl-[6px]">
@@ -279,7 +340,7 @@ const Player: FC<PlayerProps> = ({ sources }) => {
                               : ""
                           }`}
                         >
-                          {(index + 1) / 4}
+                          {(index + 1) / 4}x
                         </button>
                       </div>
                     ))}

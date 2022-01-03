@@ -16,7 +16,7 @@ const Info: FC = () => {
   return (
     <div className="flex min-h-screen justify-center items-center">
       <div className="max-w-[800px] w-full">
-        <Player sources={data.sources} />
+        <Player sources={data.sources} subtitles={data.subtitles} />
       </div>
     </div>
   );
