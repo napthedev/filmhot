@@ -119,12 +119,10 @@ const Player: FC<PlayerProps> = ({ sources, subtitles }) => {
 
   useEffect(() => {
     const keyHandler = (e: KeyboardEvent) => {
+      if (containerRef.current?.contains(document.activeElement))
+        (document.activeElement as any)?.blur();
       // Pause
-      if (
-        e.keyCode === 32 &&
-        !containerRef.current?.contains(document.activeElement)
-      )
-        pauseButton.current?.click();
+      if (e.keyCode === 32) pauseButton.current?.click();
       // Rewind
       if (e.keyCode === 37) seekTime(-10);
       // Forward
