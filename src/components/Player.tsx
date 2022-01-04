@@ -1,7 +1,7 @@
 import { FC, useEffect, useRef, useState } from "react";
+import { formatVideoTime, isMobile } from "../shared/utils";
 
 import HlsPlayer from "react-hls-player";
-import { formatVideoTime } from "../shared/utils";
 import { subtitleProxy } from "../shared/constants";
 
 interface PlayerProps {
@@ -85,7 +85,9 @@ const Player: FC<PlayerProps> = ({ sources, subtitles }) => {
 
   useEffect(() => {
     onFullScreen
-      ? containerRef.current?.requestFullscreen()
+      ? isMobile()
+        ? playerRef.current?.requestFullscreen()
+        : containerRef.current?.requestFullscreen()
       : document.fullscreenElement && document.exitFullscreen();
   }, [onFullScreen]);
 
@@ -254,7 +256,7 @@ const Player: FC<PlayerProps> = ({ sources, subtitles }) => {
                 </div>
               </div>
 
-              <div className="text-base invisible sm:visible">
+              <div className="text-base hidden sm:block">
                 <span>{formatVideoTime(currentTime)}</span>
                 <span>{" / "}</span>
                 <span>{formatVideoTime(duration)}</span>

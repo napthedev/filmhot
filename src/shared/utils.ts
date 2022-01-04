@@ -4,3 +4,6 @@ export const formatVideoTime = (time: number) => {
   const timeString = date.toISOString().substr(11, 8);
   return timeString;
 };
+
+export const isMobile = () =>
+  /iPhone|iPad|iPod|Android/i.test(window.navigator.userAgent);
