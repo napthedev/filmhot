@@ -1,5 +1,6 @@
+import { FC, Fragment } from "react";
+
 import BannerSlider from "../components/Home/BannerSlider";
-import { FC } from "react";
 import Search from "../components/Home/Search";
 import SectionSlider from "../components/Home/SectionSlider";
 import SideBar from "../components/Sidebar";
@@ -23,11 +24,15 @@ const Home: FC = () => {
             <div className="relative h-0 pb-[42%]">
               <Skeleton className="absolute top-0 left-0 w-full h-full rounded-2xl" />
             </div>
-            <Skeleton className="my-8 h-6 w-full max-w-[200px]" />
+            {[...new Array(2)].map((_, index) => (
+              <Fragment key={index}>
+                <Skeleton className="my-8 h-6 w-full max-w-[200px]" />
 
-            <div className="overflow-hidden">
-              <SkeletonSlider />
-            </div>
+                <div className="overflow-hidden">
+                  <SkeletonSlider />
+                </div>
+              </Fragment>
+            ))}
           </>
         ) : (
           <>

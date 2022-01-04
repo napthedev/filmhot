@@ -18,7 +18,6 @@ const Slider: FC<SliderProps> = ({ images }) => {
     <Swiper
       modules={[Navigation]}
       navigation
-      loop
       slidesPerView="auto"
       slidesPerGroupAuto
       spaceBetween={30}
