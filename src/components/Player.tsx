@@ -41,6 +41,8 @@ const Player: FC<PlayerProps> = ({ sources, subtitles }) => {
   const seekRef = useRef<HTMLDivElement>(null);
   const mouseDownRef = useRef<Boolean>(false);
   const timeoutRef = useRef<any>(null);
+  const fullscreenToggleButton = useRef<HTMLButtonElement>(null);
+  const pauseButton = useRef<HTMLButtonElement>(null);
 
   const seekTime = (amount: number) => {
     playerRef.current && (playerRef.current.currentTime += amount);
@@ -95,7 +97,7 @@ const Player: FC<PlayerProps> = ({ sources, subtitles }) => {
   }, []);
 
   useEffect(() => {
-    let elem = playerRef.current as any;
+    let elem = containerRef.current as any;
     if (onFullScreen) screenfull.request(elem);
     else screenfull.exit();
   }, [onFullScreen]);
@@ -117,15 +119,13 @@ const Player: FC<PlayerProps> = ({ sources, subtitles }) => {
   useEffect(() => {
     const keyHandler = (e: KeyboardEvent) => {
       // Pause
-      if (e.keyCode === 32) setPaused((prev) => !prev);
+      if (e.keyCode === 32) pauseButton.current?.click();
       // Rewind
       if (e.keyCode === 37) seekTime(-10);
       // Forward
       if (e.keyCode === 39) seekTime(10);
       // Full screen
-      if (e.keyCode === 70) setOnFullScreen((prev) => !prev);
-      // Sound
-      if (e.keyCode === 77) toggleSound();
+      if (e.keyCode === 70) fullscreenToggleButton.current?.click();
     };
 
     window.addEventListener("keyup", keyHandler);
@@ -226,6 +226,7 @@ const Player: FC<PlayerProps> = ({ sources, subtitles }) => {
           <div className="flex justify-between items-stretch flex-grow px-4">
             <div className="flex items-center gap-4">
               <button
+                ref={pauseButton}
                 className="before:left-[46px]"
                 data-tooltips={paused ? "Play (space)" : "Pause (space)"}
                 onClickCapture={() => setPaused((prev) => !prev)}
@@ -252,7 +253,7 @@ const Player: FC<PlayerProps> = ({ sources, subtitles }) => {
               </button>
 
               <div className="flex items-stretch volume-container">
-                <button data-tooltips="Volume (m)" onClickCapture={toggleSound}>
+                <button data-tooltips="Volume" onClickCapture={toggleSound}>
                   <i
                     className={`fas fa-volume-${
                       volume === 100 ? "up" : volume === 0 ? "mute" : "down"
@@ -385,6 +386,7 @@ const Player: FC<PlayerProps> = ({ sources, subtitles }) => {
               </div>
 
               <button
+                ref={fullscreenToggleButton}
                 className="before:right-[-14px] before:left-auto before:translate-x-0"
                 data-tooltips={`${
                   onFullScreen ? "Exit (f)" : "Fullscreen (f)"
