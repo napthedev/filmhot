@@ -13,6 +13,7 @@
     "react-hls-player": "^3.0.7",
     "react-lazy-load-image-component": "^1.5.1",
     "react-router-dom": "^6.2.1",
+    "screenfull": "^6.0.0",
     "swiper": "^7.4.1",
     "swr": "^1.1.2"
   },

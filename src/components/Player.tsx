@@ -2,6 +2,7 @@ import { FC, useEffect, useRef, useState } from "react";
 import { formatVideoTime, isMobile } from "../shared/utils";
 
 import HlsPlayer from "react-hls-player";
+import screenfull from "screenfull";
 import { subtitleProxy } from "../shared/constants";
 
 interface PlayerProps {
@@ -84,11 +85,19 @@ const Player: FC<PlayerProps> = ({ sources, subtitles }) => {
   }, [volume]);
 
   useEffect(() => {
-    onFullScreen
-      ? isMobile()
-        ? playerRef.current?.requestFullscreen()
-        : containerRef.current?.requestFullscreen()
-      : document.fullscreenElement && document.exitFullscreen();
+    screenfull.on("change", () => {
+      if (screenfull.isFullscreen) {
+        setOnFullScreen(true);
+      } else {
+        setOnFullScreen(false);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    let elem = playerRef.current as any;
+    if (onFullScreen) screenfull.request(elem);
+    else screenfull.exit();
   }, [onFullScreen]);
 
   useEffect(() => {
@@ -142,7 +151,7 @@ const Player: FC<PlayerProps> = ({ sources, subtitles }) => {
         <HlsPlayer
           crossOrigin=""
           playsInline
-          onClick={handleScreenClicked}
+          onClickCapture={handleScreenClicked}
           className="w-full h-full cursor-pointer"
           controls={false}
           autoPlay={false}
@@ -176,7 +185,7 @@ const Player: FC<PlayerProps> = ({ sources, subtitles }) => {
         {paused && (
           <div
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 cursor-pointer"
-            onClick={handleScreenClicked}
+            onClickCapture={handleScreenClicked}
           >
             <img className="w-[50px] h-[50px]" src="/play.svg" alt="" />
           </div>
@@ -217,9 +226,9 @@ const Player: FC<PlayerProps> = ({ sources, subtitles }) => {
           <div className="flex justify-between items-stretch flex-grow px-4">
             <div className="flex items-center gap-4">
               <button
-                className="before:left-[16px]"
-                data-tooltips={paused ? "Play" : "Pause"}
-                onClick={() => setPaused((prev) => !prev)}
+                className="before:left-[46px]"
+                data-tooltips={paused ? "Play (space)" : "Pause (space)"}
+                onClickCapture={() => setPaused((prev) => !prev)}
               >
                 <img
                   className="w-[20px] h-[20px]"
@@ -228,16 +237,22 @@ const Player: FC<PlayerProps> = ({ sources, subtitles }) => {
                 />
               </button>
 
-              <button data-tooltips="Rewind 10s" onClick={() => seekTime(-10)}>
+              <button
+                data-tooltips="Rewind 10s"
+                onClickCapture={() => seekTime(-10)}
+              >
                 <i className="fas fa-step-backward"></i>
               </button>
 
-              <button data-tooltips="Forward 10s" onClick={() => seekTime(10)}>
+              <button
+                data-tooltips="Forward 10s"
+                onClickCapture={() => seekTime(10)}
+              >
                 <i className="fas fa-step-forward"></i>
               </button>
 
               <div className="flex items-stretch volume-container">
-                <button data-tooltips="Volume" onClick={toggleSound}>
+                <button data-tooltips="Volume (m)" onClickCapture={toggleSound}>
                   <i
                     className={`fas fa-volume-${
                       volume === 100 ? "up" : volume === 0 ? "mute" : "down"
@@ -268,7 +283,7 @@ const Player: FC<PlayerProps> = ({ sources, subtitles }) => {
                 data-tooltips={
                   subtitleIndex >= 0 ? "Disable subtitle" : "Enable subtitle"
                 }
-                onClick={() =>
+                onClickCapture={() =>
                   subtitleIndex >= 0
                     ? setSubtitleIndex(-1)
                     : setSubtitleIndex(0)
@@ -282,7 +297,7 @@ const Player: FC<PlayerProps> = ({ sources, subtitles }) => {
               </button>
               <div className="relative">
                 <button
-                  onClick={() => setSettingsActive((prev) => !prev)}
+                  onClickCapture={() => setSettingsActive((prev) => !prev)}
                   data-tooltips="Settings"
                 >
                   <i className="fas fa-cog"></i>
@@ -299,7 +314,7 @@ const Player: FC<PlayerProps> = ({ sources, subtitles }) => {
                     {sources.map((source, index) => (
                       <div key={source.quality}>
                         <button
-                          onClick={() => {
+                          onClickCapture={() => {
                             setQuality(index);
                             setPaused(true);
                           }}
@@ -320,7 +335,7 @@ const Player: FC<PlayerProps> = ({ sources, subtitles }) => {
                   <div className="flex flex-col items-stretch pl-[6px]">
                     <div>
                       <button
-                        onClick={() => setSubtitleIndex(-1)}
+                        onClickCapture={() => setSubtitleIndex(-1)}
                         className={`text-sm relative text-gray-400 ${
                           subtitleIndex === -1
                             ? "text-white before:absolute before:left-[-10px] before:top-1/2 before:-translate-y-1/2 before:w-1 before:h-1 before:bg-white before:rounded-full"
@@ -333,7 +348,7 @@ const Player: FC<PlayerProps> = ({ sources, subtitles }) => {
                     {subtitles.map((subtitle, index) => (
                       <div key={index}>
                         <button
-                          onClick={() => setSubtitleIndex(index)}
+                          onClickCapture={() => setSubtitleIndex(index)}
                           className={`text-sm relative text-gray-400 ${
                             subtitleIndex === index
                               ? "text-white before:absolute before:left-[-10px] before:top-1/2 before:-translate-y-1/2 before:w-1 before:h-1 before:bg-white before:rounded-full"
@@ -352,7 +367,9 @@ const Player: FC<PlayerProps> = ({ sources, subtitles }) => {
                     {[...new Array(8)].map((_, index) => (
                       <div key={index}>
                         <button
-                          onClick={() => setPlaybackSpeed((index + 1) / 4)}
+                          onClickCapture={() =>
+                            setPlaybackSpeed((index + 1) / 4)
+                          }
                           className={`text-sm relative text-gray-400 ${
                             playbackSpeed === (index + 1) / 4
                               ? "text-white before:absolute before:left-[-10px] before:top-1/2 before:-translate-y-1/2 before:w-1 before:h-1 before:bg-white before:rounded-full"
@@ -368,9 +385,11 @@ const Player: FC<PlayerProps> = ({ sources, subtitles }) => {
               </div>
 
               <button
-                className="before:right-[-10px] before:left-auto before:translate-x-0"
-                data-tooltips={`${onFullScreen ? "Exit" : "Fullscreen"}`}
-                onClick={() => setOnFullScreen((prev) => !prev)}
+                className="before:right-[-14px] before:left-auto before:translate-x-0"
+                data-tooltips={`${
+                  onFullScreen ? "Exit (f)" : "Fullscreen (f)"
+                }`}
+                onClickCapture={() => setOnFullScreen((prev) => !prev)}
               >
                 {onFullScreen ? (
                   <i className="fas fa-compress-alt"></i>
