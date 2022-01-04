@@ -31,28 +31,39 @@ const Home: FC = () => {
           </>
         ) : (
           <>
-            <div className="overflow-hidden">
-              <BannerSlider
-                images={
-                  data
-                    .find((item) => item.homeSectionType === "BANNER")
-                    ?.recommendContentVOList.map((item) => {
-                      const searchParams = new URLSearchParams(
-                        new URL(item.jumpAddress).search
-                      );
+            {data.length === 0 && (
+              <div className="flex flex-col min-h-screen items-center justify-center">
+                <img
+                  src="https://ik.imagekit.io/nap/404_rNQi0QbcO.png?tr=w-600"
+                  alt=""
+                />
+                <h1 className="text-3xl">No Data Found</h1>
+              </div>
+            )}
+            {data.length > 0 && (
+              <div className="overflow-hidden">
+                <BannerSlider
+                  images={
+                    data
+                      .find((item) => item.homeSectionType === "BANNER")
+                      ?.recommendContentVOList.map((item) => {
+                        const searchParams = new URLSearchParams(
+                          new URL(item.jumpAddress).search
+                        );
 
-                      return {
-                        title: item.title,
-                        image: item.imageUrl,
-                        link:
-                          searchParams.get("type") === "0"
-                            ? `/movie/${searchParams.get("id")}`
-                            : `/tv/${searchParams.get("id")}`,
-                      };
-                    }) || []
-                }
-              />
-            </div>
+                        return {
+                          title: item.title,
+                          image: item.imageUrl,
+                          link:
+                            searchParams.get("type") === "0"
+                              ? `/movie/${searchParams.get("id")}`
+                              : `/tv/${searchParams.get("id")}`,
+                        };
+                      }) || []
+                  }
+                />
+              </div>
+            )}
             {data
               .filter((item) => item.homeSectionType !== "BANNER")
               .map((section) => (

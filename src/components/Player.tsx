@@ -11,6 +11,7 @@ interface PlayerProps {
     url: string;
   }[];
   subtitles: {
+    lang: string;
     language: string;
     url: string;
   }[];
