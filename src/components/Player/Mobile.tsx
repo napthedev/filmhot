@@ -1,7 +1,7 @@
 import { FC, useRef } from "react";
 
 import HlsPlayer from "react-hls-player";
-import { subtitleProxy } from "../shared/constants";
+import { subtitleProxy } from "../../shared/constants";
 
 interface MobilePlayerProps {
   sources: {

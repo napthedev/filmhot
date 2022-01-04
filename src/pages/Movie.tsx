@@ -1,6 +1,6 @@
+import DesktopPlayer from "../components/Player/Desktop";
 import { FC } from "react";
-import MobilePlayer from "../components/MobilePlayer";
-import Player from "../components/Player";
+import MobilePlayer from "../components/Player/Mobile";
 import { getMovieDetail } from "../services/movie";
 import { isMobile } from "../shared/utils";
 import { useParams } from "react-router-dom";
@@ -21,7 +21,7 @@ const Info: FC = () => {
         {isMobile() ? (
           <MobilePlayer sources={data.sources} subtitles={data.subtitles} />
         ) : (
-          <Player sources={data.sources} subtitles={data.subtitles} />
+          <DesktopPlayer sources={data.sources} subtitles={data.subtitles} />
         )}
       </div>
     </div>

@@ -1,9 +1,9 @@
 import { FC, useEffect, useRef, useState } from "react";
-import { formatVideoTime, isMobile } from "../shared/utils";
 
 import HlsPlayer from "react-hls-player";
+import { formatVideoTime } from "../../shared/utils";
 import screenfull from "screenfull";
-import { subtitleProxy } from "../shared/constants";
+import { subtitleProxy } from "../../shared/constants";
 
 interface PlayerProps {
   sources: {
