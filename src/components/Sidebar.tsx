@@ -35,7 +35,7 @@ const Sidebar: FC = () => {
                       to={item.link as string}
                       className={`flex items-center gap-2 transition ${
                         location.pathname === item.link
-                          ? "text-primary border-r-4 border-primary hover:text-primary-lighten hover:border-primary-lighten"
+                          ? "text-primary border-r-4 border-primary hover:brightness-125"
                           : "text-gray-400 hover:text-gray-300"
                       }`}
                       key={item.link}

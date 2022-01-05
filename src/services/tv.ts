@@ -1,8 +1,9 @@
 import { DetailType } from "../shared/types";
 import axios from "../shared/axios";
 
-export const getMovieDetail = async (
-  id: string
+export const getTVDetail = async (
+  id: string,
+  episodeIndex: number
 ): Promise<{
   data: DetailType;
   sources: { quality: number; url: string }[];
@@ -12,19 +13,19 @@ export const getMovieDetail = async (
     await axios.get("movieDrama/get", {
       params: {
         id,
-        category: 0,
+        category: 1,
       },
     })
   ).data.data;
 
   const sources = (
     await Promise.all(
-      data.episodeVo[0].definitionList.map(
+      data.episodeVo[episodeIndex].definitionList.map(
         async (quality: any) =>
           (
             await axios.get("media/previewInfo", {
               params: {
-                category: 0,
+                category: 1,
                 contentId: id,
                 episodeId: data.episodeVo[0].id,
                 definition: quality.code,

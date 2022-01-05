@@ -27,7 +27,7 @@ export interface TopSearched {
   title: string;
 }
 
-export interface MovieDetailType {
+export interface DetailType {
   aliasName: string;
   areaList: { id: number; name: string }[];
   areaNameList: string[];

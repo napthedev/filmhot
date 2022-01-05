@@ -155,8 +155,10 @@ const Player: FC<PlayerProps> = ({ sources, subtitles }) => {
 
           timeoutRef.current = setTimeout(() => {
             setHoverEnabled(false);
+            setSettingsActive(false);
           }, 2000);
         }}
+        onMouseLeave={() => setSettingsActive(false)}
         ref={containerRef}
         className="absolute top-0 left-0 w-full h-full flex justify-center items-center group bg-black"
       >
@@ -318,7 +320,7 @@ const Player: FC<PlayerProps> = ({ sources, subtitles }) => {
 
                 <div
                   className={`absolute bottom-[40px] right-[-40px] w-[200px] h-[200px] overflow-y-auto overflow-x-hidden bg-dark-lighten p-4 invisible opacity-0 transition ${
-                    settingsActive ? "opacity-100 !visible" : ""
+                    settingsActive ? "!opacity-100 !visible" : ""
                   }`}
                 >
                   <h1 className="text-lg">Quality</h1>
