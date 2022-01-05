@@ -48,33 +48,31 @@ const Home: FC = () => {
                   <h1 className="text-3xl">No Data Found</h1>
                 </div>
               )}
-              {data.length > 0 && (
-                <div className="overflow-hidden">
-                  <BannerSlider
-                    images={
-                      data
-                        .find((item) => item.homeSectionType === "BANNER")
-                        ?.recommendContentVOList.map((item) => {
-                          const searchParams = new URLSearchParams(
-                            new URL(item.jumpAddress).search
-                          );
+              {data.map((section) =>
+                section.homeSectionType === "BANNER" ? (
+                  <div key={section.homeSectionId} className="overflow-hidden">
+                    <BannerSlider
+                      images={
+                        data
+                          .find((item) => item.homeSectionType === "BANNER")
+                          ?.recommendContentVOList.map((item) => {
+                            const searchParams = new URLSearchParams(
+                              new URL(item.jumpAddress).search
+                            );
 
-                          return {
-                            title: item.title,
-                            image: item.imageUrl,
-                            link:
-                              searchParams.get("type") === "0"
-                                ? `/movie/${searchParams.get("id")}`
-                                : `/tv/${searchParams.get("id")}`,
-                          };
-                        }) || []
-                    }
-                  />
-                </div>
-              )}
-              {data
-                .filter((item) => item.homeSectionType !== "BANNER")
-                .map((section) => (
+                            return {
+                              title: item.title,
+                              image: item.imageUrl,
+                              link:
+                                searchParams.get("type") === "0"
+                                  ? `/movie/${searchParams.get("id")}`
+                                  : `/tv/${searchParams.get("id")}`,
+                            };
+                          }) || []
+                      }
+                    />
+                  </div>
+                ) : (
                   <div key={section.homeSectionId}>
                     <h1 className="text-2xl mb-3 mt-8">
                       {section.homeSectionName.replace("on Loklok", "")}
@@ -95,9 +93,11 @@ const Home: FC = () => {
                               : `/tv/${searchParams.get("id")}`,
                         };
                       })}
+                      coverType={section.coverType}
                     />
                   </div>
-                ))}
+                )
+              )}
             </>
           )}
         </div>

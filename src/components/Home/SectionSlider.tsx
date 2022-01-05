@@ -1,6 +1,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import { FC } from "react";
+import { IMAGE_CARD_SIZE } from "../../shared/constants";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Link } from "react-router-dom";
 import { Navigation } from "swiper";
@@ -11,9 +12,10 @@ interface SliderProps {
     image: string;
     link: string;
   }[];
+  coverType: number;
 }
 
-const Slider: FC<SliderProps> = ({ images }) => {
+const Slider: FC<SliderProps> = ({ images, coverType }) => {
   return (
     <Swiper
       modules={[Navigation]}
@@ -23,14 +25,21 @@ const Slider: FC<SliderProps> = ({ images }) => {
       spaceBetween={30}
     >
       {images.map((item) => (
-        <SwiperSlide className="!w-[175px]" key={item.image}>
+        <SwiperSlide
+          style={{ width: IMAGE_CARD_SIZE[coverType].width }}
+          key={item.image}
+        >
           <Link to={item.link}>
             <div className="rounded-lg overflow-hidden bg-dark-lighten group">
               <LazyLoadImage
-                className="group-hover:brightness-75 transition duration-300 object-cover w-[175px] h-[246px]"
+                style={{
+                  width: IMAGE_CARD_SIZE[coverType].width,
+                  height: IMAGE_CARD_SIZE[coverType].height,
+                }}
+                className="group-hover:brightness-75 transition duration-300 object-cover"
                 src={item.image}
-                width={175}
-                height={246}
+                width={IMAGE_CARD_SIZE[coverType].width}
+                height={IMAGE_CARD_SIZE[coverType].height}
                 effect="opacity"
                 alt=""
               />

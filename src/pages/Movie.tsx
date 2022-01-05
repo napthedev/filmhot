@@ -162,7 +162,7 @@ const Info: FC = () => {
               ) : (
                 <>
                   {[...new Array(2)].map((_, index) => (
-                    <>
+                    <div key={index}>
                       <Skeleton className="w-[60%] h-7 my-6" />
                       <div
                         key={index}
@@ -179,7 +179,7 @@ const Info: FC = () => {
                           </div>
                         ))}
                       </div>
-                    </>
+                    </div>
                   ))}
                 </>
               )}
