@@ -140,7 +140,9 @@ const WatchView: FC<WatchViewProps> = ({
                         {data?.refList.map((ref) => (
                           <Link
                             key={ref.id}
-                            to={`/movie/${ref.id}`}
+                            to={`/${ref.category === 0 ? "movie" : "tv"}/${
+                              ref.id
+                            }`}
                             className="flex gap-3 pr-2 hover:brightness-[85%] transition duration-300"
                           >
                             <div className="flex-shrink-0 h-[100px] w-[70px]">
@@ -170,7 +172,9 @@ const WatchView: FC<WatchViewProps> = ({
                         {data?.likeList.map((like) => (
                           <Link
                             key={like.id}
-                            to={`/movie/${like.id}`}
+                            to={`/${like.category === 0 ? "movie" : "tv"}/${
+                              like.id
+                            }`}
                             className="flex gap-3 pr-2 hover:brightness-[85%] transition duration-300"
                           >
                             <div className="flex-shrink-0 h-[100px] w-[70px]">
