@@ -131,9 +131,18 @@ const Player: FC<PlayerProps> = ({ sources, subtitles }) => {
       if (e.keyCode === 70) fullscreenToggleButton.current?.click();
     };
 
+    const spacePressHandler = (e: KeyboardEvent) => {
+      if (e.keyCode === 32) e.preventDefault();
+    };
+
     window.addEventListener("keyup", keyHandler);
 
-    return () => window.removeEventListener("keyup", keyHandler);
+    window.addEventListener("keydown", spacePressHandler);
+
+    return () => {
+      window.removeEventListener("keyup", keyHandler);
+      window.removeEventListener("keydown", spacePressHandler);
+    };
   }, []);
 
   return (
@@ -340,7 +349,7 @@ const Player: FC<PlayerProps> = ({ sources, subtitles }) => {
                     <div>
                       <button
                         onClickCapture={() => setSubtitleIndex(-1)}
-                        className={`text-sm relative text-gray-400 ${
+                        className={`text-sm relative text-gray-400 text-left ${
                           subtitleIndex === -1
                             ? "text-white before:absolute before:left-[-10px] before:top-1/2 before:-translate-y-1/2 before:w-1 before:h-1 before:bg-white before:rounded-full"
                             : ""
@@ -353,7 +362,7 @@ const Player: FC<PlayerProps> = ({ sources, subtitles }) => {
                       <div key={index}>
                         <button
                           onClickCapture={() => setSubtitleIndex(index)}
-                          className={`text-sm relative text-gray-400 ${
+                          className={`text-sm relative text-gray-400 text-left ${
                             subtitleIndex === index
                               ? "text-white before:absolute before:left-[-10px] before:top-1/2 before:-translate-y-1/2 before:w-1 before:h-1 before:bg-white before:rounded-full"
                               : ""

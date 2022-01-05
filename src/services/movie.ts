@@ -1,6 +1,13 @@
+import { MovieDetailType } from "../shared/types";
 import axios from "../shared/axios";
 
-export const getMovieDetail = async (id: string) => {
+export const getMovieDetail = async (
+  id: string
+): Promise<{
+  data: MovieDetailType;
+  sources: { quality: number; url: string }[];
+  subtitles: { language: string; url: string; lang: string }[];
+}> => {
   const data = (
     await axios.get("movieDrama/get", {
       params: {
@@ -39,7 +46,7 @@ export const getMovieDetail = async (id: string) => {
 
   const subtitles = data.episodeVo[0].subtitlingList
     .map((sub: any) => ({
-      language: sub.language,
+      language: `${sub.language}${sub.translateType ? " (Auto)" : ""}`,
       url: sub.subtitlingUrl,
       lang: sub.languageAbbr,
     }))
