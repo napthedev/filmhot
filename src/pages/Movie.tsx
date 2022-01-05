@@ -95,7 +95,7 @@ const Info: FC = () => {
                   {data?.data.refList && data.data.refList.length > 0 && (
                     <>
                       <h1 className="text-2xl my-3">In the series</h1>
-                      <div className="h-[60vh] overflow-x-hidden overflow-y-auto flex flex-col items-stretch gap-2">
+                      <div className="max-h-[60vh] overflow-x-hidden overflow-y-auto flex flex-col items-stretch gap-2">
                         {data?.data.refList.map((ref) => (
                           <Link
                             to={`/movie/${ref.id}`}
@@ -124,7 +124,7 @@ const Info: FC = () => {
                   {data?.data.likeList && data.data.likeList.length > 0 && (
                     <>
                       <h1 className="text-2xl my-3">Similar to this</h1>
-                      <div className="h-[60vh] overflow-x-hidden overflow-y-auto flex flex-col items-stretch gap-2">
+                      <div className="max-h-[60vh] overflow-x-hidden overflow-y-auto flex flex-col items-stretch gap-2">
                         {data?.data.likeList.map((like) => (
                           <Link
                             to={`/movie/${like.id}`}
@@ -160,12 +160,28 @@ const Info: FC = () => {
                   )}
                 </>
               ) : (
-                <div className="flex flex-col gap-3">
-                  <Skeleton className="w-[60%] h-7" />
-                  <Skeleton className="w-full h-[60vh]" />
-                  <Skeleton className="w-[60%] h-7" />
-                  <Skeleton className="w-full h-[60vh]" />
-                </div>
+                <>
+                  {[...new Array(2)].map((_, index) => (
+                    <>
+                      <Skeleton className="w-[60%] h-7 my-6" />
+                      <div
+                        key={index}
+                        className="max-h-[60vh] overflow-x-hidden overflow-y-auto flex flex-col gap-3"
+                      >
+                        {[...new Array(10)].map((_, index) => (
+                          <div key={index} className="flex gap-3 pr-2">
+                            <Skeleton className="h-[100px] w-[70px] flex-shrink-0" />
+
+                            <div className="flex-grow">
+                              <Skeleton className="w-full h-4" />
+                              <Skeleton className="w-[70%] h-4 mt-3" />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </>
+                  ))}
+                </>
               )}
             </div>
           </div>
