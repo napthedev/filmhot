@@ -67,8 +67,10 @@ const Info: FC = () => {
                       <img className="w-4 h-4" src="/star.png" alt="" />
                       <p>{data?.data.score.toFixed(1)}</p>
                     </div>
-
-                    <p>{data?.data.year}</p>
+                    <div className="flex items-center gap-1">
+                      <img className="w-4 h-4" src="/calendar.png" alt="" />
+                      <p>{data?.data.year}</p>
+                    </div>
                   </div>
 
                   <div className="flex gap-3">
