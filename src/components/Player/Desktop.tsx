@@ -319,6 +319,10 @@ const Player: FC<PlayerProps> = ({ sources, subtitles }) => {
                 </button>
 
                 <div
+                  onMouseMove={(e) => {
+                    e.stopPropagation();
+                    clearTimeout(timeoutRef.current);
+                  }}
                   className={`absolute bottom-[40px] right-[-40px] w-[200px] h-[200px] overflow-y-auto overflow-x-hidden bg-dark-lighten p-4 invisible opacity-0 transition ${
                     settingsActive ? "!opacity-100 !visible" : ""
                   }`}
