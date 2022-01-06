@@ -4,7 +4,8 @@ import { FC } from "react";
 import ImageFade from "./ImageFade";
 import { Link } from "react-router-dom";
 import MobilePlayer from "./Player/Mobile";
-import Search from "./Search";
+import NavBar from "./NavBar";
+import SearchBox from "./Search/SearchBox";
 import Skeleton from "./Skeleton";
 import Title from "./Title";
 import { isMobile } from "../shared/utils";
@@ -47,14 +48,8 @@ const WatchView: FC<WatchViewProps> = ({
       )}
       <div className="flex justify-center">
         <div className="mx-[4vw] lg:mx-[6vw] flex-1">
-          <div className="flex justify-between items-center mt-7">
-            <Link to="/" className="flex items-center gap-2 text-2xl">
-              <img className="w-8 h-8" src="/icon.png" alt="" />
-              <span>FilmHot</span>
-            </Link>
+          <NavBar />
 
-            <Search />
-          </div>
           <div className="flex flex-col md:flex-row gap-10 my-7">
             <div className="flex flex-col items-stretch flex-grow">
               <div className="w-full">

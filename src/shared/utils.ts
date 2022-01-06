@@ -7,3 +7,9 @@ export const formatVideoTime = (time: number) => {
 
 export const isMobile = () =>
   /iPhone|iPad|iPod|Android/i.test(window.navigator.userAgent);
+
+export const htmlToText = (html: string) => {
+  const div = document.createElement("div");
+  div.innerHTML = html;
+  return div.textContent;
+};

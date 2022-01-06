@@ -1,7 +1,7 @@
 import { FC, Fragment } from "react";
 
 import BannerSlider from "../components/Home/BannerSlider";
-import Search from "../components/Search";
+import SearchBox from "../components/Search/SearchBox";
 import SectionSlider from "../components/Home/SectionSlider";
 import SideBar from "../components/Sidebar";
 import Skeleton from "../components/Skeleton";
@@ -17,7 +17,7 @@ const Home: FC = () => {
 
   return (
     <>
-      <Title value="FilmHot - AdFree Movie / Anime Watching Website" />
+      <Title value="FilmHot - AdFree Movie / TV Watching Website" />
       <div className="flex">
         <SideBar />
 
@@ -103,7 +103,7 @@ const Home: FC = () => {
         </div>
 
         <div className="flex-shrink-0 w-[350px] p-8 sticky top-0 h-screen scrollbar overflow-hidden overflow-y-auto">
-          <Search />
+          <SearchBox />
           <h1 className="text-xl my-6">Top Searches</h1>
           <TopSearches />
         </div>
