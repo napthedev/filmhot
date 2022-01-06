@@ -69,7 +69,7 @@ const WatchView: FC<WatchViewProps> = ({
               </div>
 
               {data ? (
-                <div className="flex flex-col items-stretch gap-[10px]">
+                <div className="flex flex-col gap-[10px]">
                   <h1 className="text-3xl mt-5">{data?.name}</h1>
 
                   <div className="flex gap-4">
@@ -97,9 +97,9 @@ const WatchView: FC<WatchViewProps> = ({
                   <p>{data.introduction}</p>
 
                   {data.episodeVo.length > 1 && (
-                    <div className="flex flex-col items-stretch">
+                    <>
                       <h1 className="text-xl my-3">Episodes</h1>
-                      <div className="flex gap-3 overflow-x-auto overflow-y-hidden">
+                      <div className="flex max-w-[92vw] md:max-w-[calc(88vw-300px)] gap-3 overflow-auto">
                         {data.episodeVo.map((_, index) => (
                           <Link
                             to={`/tv/${data.id}?episode=${index}`}
@@ -114,7 +114,7 @@ const WatchView: FC<WatchViewProps> = ({
                           </Link>
                         ))}
                       </div>
-                    </div>
+                    </>
                   )}
                 </div>
               ) : (

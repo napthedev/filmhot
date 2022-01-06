@@ -34,6 +34,7 @@ const SearchResult: FC<SearchResultProps> = ({ query }) => {
         <>
           {data.map((item) => (
             <Link
+              title={item.name}
               to={
                 item.domainType === 0 ? `/movie/${item.id}` : `/tv/${item.id}`
               }
