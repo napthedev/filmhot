@@ -1,15 +1,8 @@
+import { User } from "../shared/types";
 import create from "zustand";
 
 interface Store {
-  currentUser:
-    | null
-    | undefined
-    | {
-        uid: string;
-        email: string;
-        photoURL: string;
-        displayName: string;
-      };
+  currentUser: null | undefined | User;
 
   setCurrentUser: (user: any) => void;
 }

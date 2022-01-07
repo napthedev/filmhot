@@ -4,17 +4,16 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
-import { Navigate, useLocation } from "react-router-dom";
 
+import { Navigate } from "react-router-dom";
 import { auth } from "../shared/firebase";
+import { useQueryParams } from "../hooks/useQueryParams";
 import { useStore } from "../store";
 
 const SignIn: FC = () => {
   const currentUser = useStore((state) => state.currentUser);
 
-  const location = useLocation();
-
-  const searchParams = new URLSearchParams(location.search);
+  const queryParams = useQueryParams();
 
   const [loading, setLoading] = useState(false);
 
@@ -42,7 +41,7 @@ const SignIn: FC = () => {
       });
   };
 
-  if (currentUser) return <Navigate to={searchParams.get("redirect") || "/"} />;
+  if (currentUser) return <Navigate to={queryParams.get("redirect") || "/"} />;
 
   return (
     <div className="min-h-screen w-screen bg-[url('/bg.png')] bg-no-repeat bg-cover bg-center">

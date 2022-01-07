@@ -1,16 +1,14 @@
-import { useLocation, useParams } from "react-router-dom";
-
 import { FC } from "react";
 import WatchView from "../components/WatchView";
 import { getTVDetail } from "../services/tv";
+import { useParams } from "react-router-dom";
+import { useQueryParams } from "../hooks/useQueryParams";
 import useSWR from "swr";
 
 const TV: FC = () => {
   const { id } = useParams();
 
-  const location = useLocation();
-
-  const queryParams = new URLSearchParams(location.search);
+  const queryParams = useQueryParams();
 
   const episodeIndex = Number(queryParams.get("episode")) || 0;
 

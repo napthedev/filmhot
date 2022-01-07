@@ -3,14 +3,11 @@ import NavBar from "../components/NavBar";
 import SearchBox from "../components/Search/SearchBox";
 import SearchResult from "../components/Search/SearchResult";
 import Title from "../components/Title";
-import { useLocation } from "react-router-dom";
+import { useQueryParams } from "../hooks/useQueryParams";
 
 const Search: FC = () => {
-  const location = useLocation();
-
-  const searchParams = new URLSearchParams(location.search);
-
-  const query = searchParams.get("q");
+  const queryParams = useQueryParams();
+  const query = queryParams.get("q");
 
   if (!query?.trim())
     return (

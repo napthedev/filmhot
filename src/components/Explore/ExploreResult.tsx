@@ -14,8 +14,9 @@ interface ExploreResultProps {
 }
 
 const ExploreResult: FC<ExploreResultProps> = ({ params, configs }) => {
-  const { data, error } = useSWR(`explore-${JSON.stringify(configs)}`, () =>
-    advanceSearch(params, configs)
+  const { data, error } = useSWR(
+    `explore-${params}-${JSON.stringify(configs)}`,
+    () => advanceSearch(params, configs)
   );
 
   if (error) return <div>Error</div>;

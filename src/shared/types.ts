@@ -154,3 +154,19 @@ export interface SearchConfig {
     name: string;
   }[];
 }
+
+export interface User {
+  uid: string;
+  email: string;
+  photoURL: string;
+  displayName: string;
+}
+
+export interface CommentType {
+  user: User;
+  value: string;
+  createdAt: {
+    nanoseconds: number;
+    seconds: number;
+  };
+}
