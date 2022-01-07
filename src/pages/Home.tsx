@@ -39,15 +39,6 @@ const Home: FC = () => {
             </>
           ) : (
             <>
-              {data.length === 0 && (
-                <div className="flex flex-col min-h-screen items-center justify-center">
-                  <img
-                    src="https://ik.imagekit.io/nap/404_rNQi0QbcO.png?tr=w-600"
-                    alt=""
-                  />
-                  <h1 className="text-3xl">No Data Found</h1>
-                </div>
-              )}
               {data.map((section) =>
                 section.homeSectionType === "BANNER" ? (
                   <div key={section.homeSectionId} className="overflow-hidden">

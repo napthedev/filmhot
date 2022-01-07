@@ -13,7 +13,7 @@ ReactDOM.render(
     <SWRConfig
       value={{
         revalidateOnFocus: false,
-        errorRetryInterval: 10,
+        shouldRetryOnError: false,
       }}
     >
       <App />

@@ -7,10 +7,14 @@ const NavBar: FC = () => {
     <div className="flex justify-between items-center my-7">
       <Link to="/" className="flex items-center gap-2 text-2xl">
         <img className="w-8 h-8" src="/icon.png" alt="" />
-        <span>FilmHot</span>
+        <span className="font-semibold">FilmHot</span>
       </Link>
 
-      <div className="max-w-[500px]">
+      <Link className="block md:hidden" to="/search">
+        <i className="fas fa-search text-2xl"></i>
+      </Link>
+
+      <div className="max-w-[500px] hidden md:block">
         <SearchBox />
       </div>
     </div>

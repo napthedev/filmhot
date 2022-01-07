@@ -6,7 +6,7 @@ import { searchKeywords } from "../../services/search";
 
 const SearchBox: FC = () => {
   const [inputValue, setInputValue] = useState("");
-  const [suggestions, setSuggestions] = useState([]);
+  const [suggestions, setSuggestions] = useState<string[]>([]);
 
   const timeoutRef = useRef<any>(null);
 

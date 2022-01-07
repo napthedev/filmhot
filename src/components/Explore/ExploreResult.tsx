@@ -2,17 +2,20 @@ import { FC } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Link } from "react-router-dom";
 import Skeleton from "../Skeleton";
+import { advanceSearch } from "../../services/explore";
 import { resizeImage } from "../../shared/constants";
-import { searchWithKeyword } from "../../services/search";
 import useSWR from "swr";
 
-interface SearchResultProps {
-  query: string;
+interface ExploreResultProps {
+  params: string;
+  configs: {
+    [key: string]: any;
+  };
 }
 
-const SearchResult: FC<SearchResultProps> = ({ query }) => {
-  const { data, error } = useSWR(`search-${query}`, () =>
-    searchWithKeyword(query)
+const ExploreResult: FC<ExploreResultProps> = ({ params, configs }) => {
+  const { data, error } = useSWR(`explore-${JSON.stringify(configs)}`, () =>
+    advanceSearch(params, configs)
   );
 
   if (error) return <div>Error</div>;
@@ -67,4 +70,4 @@ const SearchResult: FC<SearchResultProps> = ({ query }) => {
   );
 };
 
-export default SearchResult;
+export default ExploreResult;
