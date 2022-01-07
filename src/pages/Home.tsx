@@ -17,7 +17,7 @@ const Home: FC = () => {
 
   return (
     <>
-      <Title value="FilmHot - AdFree Movie / TV Watching Website" />
+      <Title value="FilmHot - AdFree Movie / Anime Watching Website" />
       <div className="flex">
         <SideBar />
 

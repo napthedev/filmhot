@@ -1,13 +1,34 @@
+import { FC, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 
 import Explore from "./pages/Explore";
-import { FC } from "react";
 import Home from "./pages/Home";
 import Movie from "./pages/Movie";
 import Search from "./pages/Search";
+import SignIn from "./pages/SignIn";
 import TV from "./pages/TV";
+import { auth } from "./shared/firebase";
+import { onAuthStateChanged } from "firebase/auth";
+import { useStore } from "./store";
 
 const App: FC = () => {
+  const setCurrentUser = useStore((state) => state.setCurrentUser);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setCurrentUser({
+          uid: user.uid,
+          email: user.email,
+          photoURL: user.photoURL,
+          displayName: user.displayName,
+        });
+      } else {
+        setCurrentUser(null);
+      }
+    });
+  }, []);
+
   return (
     <Routes>
       <Route index element={<Home />} />
@@ -15,6 +36,7 @@ const App: FC = () => {
       <Route path="tv/:id" element={<TV />} />
       <Route path="search" element={<Search />} />
       <Route path="explore" element={<Explore />} />
+      <Route path="sign-in" element={<SignIn />} />
     </Routes>
   );
 };

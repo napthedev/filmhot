@@ -17,38 +17,18 @@ export const IMAGE_CARD_SIZE = {
 
 export const SIDEBAR_LINKS = [
   {
-    title: "Menu",
-    children: [
-      {
-        name: "Home",
-        link: "/",
-        icon: "home",
-      },
-      {
-        name: "Discovery",
-        link: "/discovery",
-        icon: "compass",
-      },
-      {
-        name: "Explore",
-        link: "/explore",
-        icon: "desktop",
-      },
-    ],
+    name: "Home",
+    link: "/",
+    icon: "home",
   },
-
   {
-    title: "General",
-    children: [
-      {
-        name: "Settings",
-        link: "/settings",
-        icon: "cog",
-      },
-      {
-        auth: true,
-        name: "Auth",
-      },
-    ],
+    name: "Discovery",
+    link: "/discovery",
+    icon: "compass",
+  },
+  {
+    name: "Explore",
+    link: "/explore",
+    icon: "desktop",
   },
 ];
