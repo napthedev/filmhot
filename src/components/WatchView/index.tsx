@@ -1,7 +1,8 @@
+import { FC, useEffect } from "react";
+
 import Comment from "./Comment";
 import DesktopPlayer from "../Player/Desktop";
 import { DetailType } from "../../shared/types";
-import { FC } from "react";
 import MetaData from "./MetaData";
 import MobilePlayer from "../Player/Mobile";
 import NavBar from "../NavBar";
@@ -38,6 +39,31 @@ const WatchView: FC<WatchViewProps> = ({
   const playerKey = `${mediaType}-${data?.id}${
     episodeIndex ? `-${episodeIndex}` : ""
   }`;
+
+  useEffect(() => {
+    if (!data) return;
+    let existing = JSON.parse(
+      localStorage.getItem("filmhot-recent") || "[]"
+    ) as {
+      id: string;
+      category: number;
+      coverVerticalUrl: string;
+      name: string;
+    }[];
+
+    if (!Array.isArray(existing)) return;
+
+    existing = existing.filter((item) => item.id !== data.id);
+
+    existing.unshift({
+      id: data.id,
+      category: data.category,
+      coverVerticalUrl: data.coverVerticalUrl,
+      name: data.name,
+    });
+
+    localStorage.setItem("filmhot-recent", JSON.stringify(existing));
+  }, [data]);
 
   return (
     <>

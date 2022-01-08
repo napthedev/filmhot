@@ -2,6 +2,7 @@ import { FC, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 
 import Explore from "./pages/Explore";
+import History from "./pages/History";
 import Home from "./pages/Home";
 import Movie from "./pages/Movie";
 import Search from "./pages/Search";
@@ -37,6 +38,7 @@ const App: FC = () => {
       <Route path="search" element={<Search />} />
       <Route path="explore" element={<Explore />} />
       <Route path="sign-in" element={<SignIn />} />
+      <Route path="history" element={<History />} />
     </Routes>
   );
 };

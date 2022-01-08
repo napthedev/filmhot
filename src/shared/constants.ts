@@ -31,4 +31,9 @@ export const SIDEBAR_LINKS = [
     link: "/explore",
     icon: "desktop",
   },
+  {
+    name: "History",
+    link: "/history",
+    icon: "history",
+  },
 ];
