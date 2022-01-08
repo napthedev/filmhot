@@ -1,6 +1,7 @@
 import {
   CollectionReference,
   DocumentData,
+  Query,
   QuerySnapshot,
   onSnapshot,
 } from "firebase/firestore";
@@ -8,7 +9,7 @@ import { useEffect, useState } from "react";
 
 export const useCollectionQuery: (
   key: string,
-  collection: CollectionReference
+  collection: CollectionReference | Query<DocumentData>
 ) => { loading: boolean; error: boolean; data: QuerySnapshot | null } = (
   key,
   collection

@@ -1,7 +1,16 @@
 import { CommentType, DetailType } from "../../shared/types";
 import { FC, FormEvent, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  limit,
+  orderBy,
+  query,
+  serverTimestamp,
+  updateDoc,
+} from "firebase/firestore";
 
 import { calculateCreatedTime } from "../../shared/utils";
 import { db } from "../../shared/firebase";
@@ -26,6 +35,8 @@ const Comment: FC<CommentProps> = ({ data, episodeIndex }) => {
 
   const collectionPath = `${mediaType}-${data.id}`;
 
+  const [commentLimit, setCommentLimit] = useState(10);
+
   const handleFormSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (commentInputValue.trim()) {
@@ -34,6 +45,7 @@ const Comment: FC<CommentProps> = ({ data, episodeIndex }) => {
       addDoc(collection(db, collectionPath), {
         user: currentUser,
         value: commentInputValue.trim(),
+        reactions: {},
         createdAt: serverTimestamp(),
       }).finally(() => setCommentLoading(false));
 
@@ -41,9 +53,24 @@ const Comment: FC<CommentProps> = ({ data, episodeIndex }) => {
     }
   };
 
-  const { data: commentData, error } = useCollectionQuery(
-    collectionPath,
-    collection(db, collectionPath)
+  const addReaction = async (commentId: string, value: number) => {
+    if (currentUser?.uid)
+      updateDoc(doc(db, collectionPath, commentId), {
+        [`reactions.${currentUser?.uid}`]: value,
+      });
+  };
+
+  const {
+    data: commentData,
+    error,
+    loading,
+  } = useCollectionQuery(
+    `${collectionPath}-${commentLimit}`,
+    query(
+      collection(db, collectionPath),
+      orderBy("createdAt", "desc"),
+      limit(commentLimit)
+    )
   );
 
   return (
@@ -133,11 +160,96 @@ const Comment: FC<CommentProps> = ({ data, episodeIndex }) => {
                       </p>
                     </div>
                     <p>{docData.value}</p>
+
+                    <div className="flex gap-3 items-center">
+                      <button
+                        onClick={() =>
+                          addReaction(
+                            doc.id,
+                            Object.entries(docData.reactions).find(
+                              (item) => item[0] === currentUser?.uid
+                            )?.[1] === 1
+                              ? 0
+                              : 1
+                          )
+                        }
+                        className={`flex items-center gap-1 transition ${
+                          !currentUser
+                            ? "cursor-default"
+                            : "hover:brightness-75"
+                        } ${
+                          Object.entries(docData.reactions).find(
+                            (item) => item[0] === currentUser?.uid
+                          )?.[1] === 1
+                            ? "text-primary"
+                            : ""
+                        }`}
+                      >
+                        <i className="fas fa-thumbs-up"></i>
+                        <span>
+                          {
+                            Object.values(docData.reactions).filter(
+                              (item) => item === 1
+                            ).length
+                          }
+                        </span>
+                      </button>
+
+                      <button
+                        onClick={() =>
+                          addReaction(
+                            doc.id,
+                            Object.entries(docData.reactions).find(
+                              (item) => item[0] === currentUser?.uid
+                            )?.[1] === 2
+                              ? 0
+                              : 2
+                          )
+                        }
+                        className={`flex items-center gap-1 transition ${
+                          !currentUser
+                            ? "cursor-default"
+                            : "hover:brightness-75"
+                        } ${
+                          Object.entries(docData.reactions).find(
+                            (item) => item[0] === currentUser?.uid
+                          )?.[1] === 2
+                            ? "text-primary"
+                            : ""
+                        }`}
+                      >
+                        <i className="fas fa-thumbs-down"></i>
+                        <span>
+                          {
+                            Object.values(docData.reactions).filter(
+                              (item) => item === 2
+                            ).length
+                          }
+                        </span>
+                      </button>
+                    </div>
                   </div>
                 </div>
               );
             })}
           </div>
+
+          {!loading && !commentData?.size && (
+            <p className="text-center text-gray-400">No one has commented</p>
+          )}
+
+          {!loading &&
+            Boolean(commentData?.size) &&
+            (commentData?.size as number) >= commentLimit && (
+              <div className="flex justify-center mt-8">
+                <button
+                  onClick={() => setCommentLimit(commentLimit + 10)}
+                  className="bg-primary text-white px-4 py-2 rounded hover:brightness-[115%] transition"
+                >
+                  Load more
+                </button>
+              </div>
+            )}
         </>
       )}
     </div>

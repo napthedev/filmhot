@@ -165,6 +165,9 @@ export interface User {
 export interface CommentType {
   user: User;
   value: string;
+  reactions: {
+    [key: string]: number;
+  };
   createdAt: {
     nanoseconds: number;
     seconds: number;
