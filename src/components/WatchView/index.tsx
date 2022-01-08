@@ -34,6 +34,11 @@ const WatchView: FC<WatchViewProps> = ({
   subtitles,
   episodeIndex,
 }) => {
+  const mediaType = typeof episodeIndex === "undefined" ? "movie" : "tv";
+  const playerKey = `${mediaType}-${data?.id}${
+    episodeIndex ? `-${episodeIndex}` : ""
+  }`;
+
   return (
     <>
       {data && (
@@ -55,9 +60,17 @@ const WatchView: FC<WatchViewProps> = ({
                 {data && sources && subtitles ? (
                   <>
                     {isMobile() ? (
-                      <MobilePlayer sources={sources} subtitles={subtitles} />
+                      <MobilePlayer
+                        playerKey={playerKey}
+                        sources={sources}
+                        subtitles={subtitles}
+                      />
                     ) : (
-                      <DesktopPlayer sources={sources} subtitles={subtitles} />
+                      <DesktopPlayer
+                        playerKey={playerKey}
+                        sources={sources}
+                        subtitles={subtitles}
+                      />
                     )}
                   </>
                 ) : (

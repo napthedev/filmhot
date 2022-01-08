@@ -6,6 +6,7 @@ import screenfull from "screenfull";
 import { subtitleProxy } from "../../shared/constants";
 
 interface PlayerProps {
+  playerKey: string;
   sources: {
     quality: number;
     url: string;
@@ -17,7 +18,7 @@ interface PlayerProps {
   }[];
 }
 
-const Player: FC<PlayerProps> = ({ sources, subtitles }) => {
+const Player: FC<PlayerProps> = ({ playerKey, sources, subtitles }) => {
   const [quality, setQuality] = useState(0);
   const [playbackSpeed, setPlaybackSpeed] = useState(
     Number(localStorage.getItem("filmhot-speed")) || 1
@@ -173,8 +174,19 @@ const Player: FC<PlayerProps> = ({ sources, subtitles }) => {
           src={sources[quality].url}
           onWaiting={() => setLoading(true)}
           onPlaying={() => setLoading(false)}
-          onLoadedData={() => setDuration(playerRef.current?.duration || 0)}
+          onLoadedData={() => {
+            setDuration(playerRef.current?.duration || 0);
+            const currentTime = Number(
+              localStorage.getItem(`${playerKey}-time`) as string
+            );
+            setCurrentTime(currentTime);
+            playerRef.current && (playerRef.current.currentTime = currentTime);
+          }}
           onTimeUpdate={() => {
+            localStorage.setItem(
+              `${playerKey}-time`,
+              String(playerRef.current?.currentTime || 0)
+            );
             setCurrentTime(playerRef.current?.currentTime || 0);
             setDuration(playerRef.current?.duration || 0);
           }}
