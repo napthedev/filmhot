@@ -56,7 +56,7 @@ const WatchView: FC<WatchViewProps> = ({
 
           <div className="flex flex-col md:flex-row gap-10 my-7">
             <div className="flex flex-col items-stretch flex-grow">
-              <div className="w-full">
+              <div key={episodeIndex} className="w-full">
                 {data && sources && subtitles ? (
                   <>
                     {isMobile() ? (
