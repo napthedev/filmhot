@@ -27,7 +27,7 @@ const Category: FC = () => {
         <h1 className="my-6 text-2xl">Category: {categoryName}</h1>
       </div>
 
-      <CategoryResult id={id} />
+      <CategoryResult id={id} categoryName={categoryName} />
     </div>
   );
 };
