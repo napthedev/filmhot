@@ -33,7 +33,9 @@ const Player: FC<PlayerProps> = ({ playerKey, sources, subtitles }) => {
   const [duration, setDuration] = useState(0);
 
   const [volume, setVolume] = useState(
-    Number(localStorage.getItem("filmhot-volume")) || 100
+    isNaN(Number(localStorage.getItem("filmhot-volume")))
+      ? 100
+      : Number(localStorage.getItem("filmhot-volume"))
   );
 
   const [hoverEnabled, setHoverEnabled] = useState(true);
