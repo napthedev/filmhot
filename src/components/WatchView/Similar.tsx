@@ -14,31 +14,34 @@ const Similar: FC<SimilarProps> = ({ data }) => {
     <div className="flex-shrink-0 md:w-[300px]">
       {data ? (
         <>
-          {data?.refList && data.refList.length > 0 && (
-            <>
-              <h1 className="text-2xl my-3">In the series</h1>
-              <div className="max-h-[60vh] overflow-x-hidden overflow-y-auto flex flex-col items-stretch gap-2">
-                {data?.refList.map((ref) => (
-                  <Link
-                    key={ref.id}
-                    to={`/${ref.category === 0 ? "movie" : "tv"}/${ref.id}`}
-                    className="flex gap-3 pr-2 hover:brightness-[85%] transition duration-300"
-                  >
-                    <div className="flex-shrink-0 h-[100px] w-[70px]">
-                      <ImageFade
-                        className="h-full w-full object-cover"
-                        src={resizeImage(ref.coverVerticalUrl, "", "100")}
-                        alt=""
-                      />
-                    </div>
-                    <div className="my-2 flex-grow">
-                      <p>{ref.name}</p>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </>
-          )}
+          {data?.refList &&
+            data.refList.filter((item) => item.id !== data.id).length > 0 && (
+              <>
+                <h1 className="text-2xl my-3">In the series</h1>
+                <div className="max-h-[60vh] overflow-x-hidden overflow-y-auto flex flex-col items-stretch gap-2">
+                  {data?.refList
+                    .filter((item) => item.id !== data.id)
+                    .map((ref) => (
+                      <Link
+                        key={ref.id}
+                        to={`/${ref.category === 0 ? "movie" : "tv"}/${ref.id}`}
+                        className="flex gap-3 pr-2 hover:brightness-[85%] transition duration-300"
+                      >
+                        <div className="flex-shrink-0 h-[100px] w-[70px]">
+                          <ImageFade
+                            className="h-full w-full object-cover"
+                            src={resizeImage(ref.coverVerticalUrl, "", "100")}
+                            alt=""
+                          />
+                        </div>
+                        <div className="my-2 flex-grow">
+                          <p>{ref.name}</p>
+                        </div>
+                      </Link>
+                    ))}
+                </div>
+              </>
+            )}
 
           {data?.likeList && data.likeList.length > 0 && (
             <>
