@@ -1,6 +1,7 @@
 import { FC, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 
+import Category from "./pages/Category";
 import Explore from "./pages/Explore";
 import History from "./pages/History";
 import Home from "./pages/Home";
@@ -39,6 +40,7 @@ const App: FC = () => {
       <Route path="explore" element={<Explore />} />
       <Route path="sign-in" element={<SignIn />} />
       <Route path="history" element={<History />} />
+      <Route path="category/:id" element={<Category />} />
     </Routes>
   );
 };

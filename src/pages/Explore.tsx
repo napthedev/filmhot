@@ -6,7 +6,7 @@ import { getSearchConfig } from "../services/explore";
 import useSWR from "swr";
 
 const Explore: FC = () => {
-  const { data: searchConfig } = useSWR("explore-config", () =>
+  const { data: searchConfig } = useSWR("search-config", () =>
     getSearchConfig()
   );
 
