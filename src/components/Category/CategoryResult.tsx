@@ -35,11 +35,7 @@ const CategoryResult: FC<CategoryResultProps> = ({ id, categoryName }) => {
             <div className="w-10 h-10 border-[3px] border-primary border-t-transparent rounded-full animate-spin my-10"></div>
           </div>
         }
-        endMessage={
-          <p className="text-center">
-            <b>Nothing more to see</b>
-          </p>
-        }
+        endMessage={<p className="text-center mt-6">Nothing more to see</p>}
       >
         <div className="flex justify-center mx-[7vw]">
           <div className="w-full grid grid-cols-sm md:grid-cols-lg gap-6">
