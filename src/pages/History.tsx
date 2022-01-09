@@ -1,4 +1,5 @@
-import { FC } from "react";
+import { FC, useState } from "react";
+
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Link } from "react-router-dom";
 import NavBar from "../components/NavBar";
@@ -15,14 +16,25 @@ const getHistory = () => {
 };
 
 const History: FC = () => {
-  const data = getHistory();
+  const [data, setData] = useState(getHistory());
+
+  const clearHistory = () => {
+    localStorage.removeItem("filmhot-recent");
+    setData(getHistory());
+  };
 
   return (
     <>
       <Title value="Watch history - FilmHot" />
       <div className="flex flex-col items-stretch mx-[7vw] mb-8">
         <NavBar />
-        <h1 className="mb-6 text-3xl">Watch history</h1>
+        <div className="flex justify-between mb-6">
+          <h1 className="text-3xl">Watch history</h1>
+
+          <button onClick={clearHistory} className="text-primary">
+            <i className="fas fa-trash"></i> <span>Clear</span>
+          </button>
+        </div>
         <div className="grid gap-6 grid-cols-sm md:grid-cols-lg">
           {data.length === 0 ? (
             <div>No result found</div>

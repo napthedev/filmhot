@@ -2,7 +2,6 @@ import { FC } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Link } from "react-router-dom";
-import MovieGrid from "../MovieGrid";
 import { advanceSearch } from "../../services/explore";
 import { resizeImage } from "../../shared/constants";
 import useSWRInfinite from "swr/infinite";
