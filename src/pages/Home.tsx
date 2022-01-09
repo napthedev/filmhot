@@ -33,7 +33,7 @@ const Home: FC = () => {
     <>
       <Title value="FilmHot - AdFree Movie / Anime Watching Website" />
 
-      <div className="flex sm:hidden justify-between px-8 my-6">
+      <div className="flex sm:hidden justify-between px-[4vw] mt-6">
         <Link to="/" className="flex items-center gap-2">
           <img className="w-8 h-8" src="/icon.png" alt="" />
           <span className="text-xl font-medium">FilmHot</span>
@@ -54,7 +54,7 @@ const Home: FC = () => {
       <div className="flex">
         <SideBar sidebarActive={sidebarActive} />
 
-        <div className="flex-grow p-8 pt-0 overflow-hidden flex flex-col items-stretch">
+        <div className="flex-grow px-[4vw] md:px-8 pb-8 pt-0 overflow-hidden flex flex-col items-stretch">
           {!data || error ? (
             <>
               <div className="relative h-0 pb-[42%] mt-8">
