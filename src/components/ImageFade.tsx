@@ -12,7 +12,7 @@ const ImageFade: FC<HTMLProps<HTMLImageElement>> = ({
     <img
       className={`${
         loaded ? "opacity-100" : "opacity-0"
-      } transition duration-300`}
+      } transition duration-300 ${className}`}
       onLoad={(e) => {
         setLoaded(true);
         onLoad && onLoad(e);
