@@ -51,12 +51,17 @@ const Discovery: FC = () => {
       <div className="flex">
         <Sidebar sidebarActive={sidebarActive} />
 
-        <div className="flex-grow py-10 px-[4vw] min-h-screen">
+        <div className="flex-grow py-10 px-[4vw]">
+          {!data && (
+            <div className="h-screen w-full flex justify-center items-center">
+              <div className="w-10 h-10 border-[3px] border-t-transparent border-primary rounded-full animate-spin"></div>
+            </div>
+          )}
           <InfiniteScroll
             dataLength={data?.length || 0}
             next={() => setSize((prev) => prev + 1)}
             hasMore={!error && data?.slice(-1)?.[0]?.length !== 0}
-            loader={<>Loading</>}
+            loader={<></>}
           >
             <div className="flex flex-col items-center w-full gap-24">
               {data
