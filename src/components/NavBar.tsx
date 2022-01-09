@@ -5,9 +5,9 @@ import SearchBox from "./Search/SearchBox";
 const NavBar: FC = () => {
   return (
     <div className="flex justify-between items-center my-7">
-      <Link to="/" className="flex items-center gap-2 text-2xl">
+      <Link to="/" className="flex items-center gap-2">
         <img className="w-8 h-8" src="/icon.png" alt="" />
-        <span className="font-semibold">FilmHot</span>
+        <span className="text-xl font-medium">FilmHot</span>
       </Link>
 
       <Link className="block md:hidden" to="/search">

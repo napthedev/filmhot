@@ -1,4 +1,5 @@
-import { FC, Fragment } from "react";
+import { FC, Fragment, useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 import BannerSlider from "../components/Home/BannerSlider";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -20,11 +21,38 @@ const Home: FC = () => {
     getHome(Number(key.split("-").slice(-1)[0]))
   );
 
+  const [sidebarActive, setSidebarActive] = useState(false);
+
+  const location = useLocation();
+
+  useEffect(() => {
+    setSidebarActive(false);
+  }, [location]);
+
   return (
     <>
       <Title value="FilmHot - AdFree Movie / Anime Watching Website" />
+
+      <div className="flex sm:hidden justify-between px-8 my-6">
+        <Link to="/" className="flex items-center gap-2">
+          <img className="w-8 h-8" src="/icon.png" alt="" />
+          <span className="text-xl font-medium">FilmHot</span>
+        </Link>
+
+        <button onClick={() => setSidebarActive(!sidebarActive)}>
+          <i className="fas fa-bars text-2xl"></i>
+        </button>
+      </div>
+
+      <div
+        onClick={() => setSidebarActive(false)}
+        className={`bg-[#00000080] z-[5] fixed top-0 left-0 w-full h-full transition duration-500 ${
+          sidebarActive ? "opacity-100 visible" : "opacity-0 invisible"
+        }`}
+      ></div>
+
       <div className="flex">
-        <SideBar />
+        <SideBar sidebarActive={sidebarActive} />
 
         <div className="flex-grow p-8 pt-0 overflow-hidden flex flex-col items-stretch">
           {!data || error ? (
