@@ -6,12 +6,14 @@ export const getSearchConfig = async (): Promise<SearchConfig[]> =>
 
 export const advanceSearch = async (
   params: string,
-  configs: { [key: string]: any }
+  configs: { [key: string]: any },
+  sort: string
 ) =>
   (
     await axios.post("search/v1/search", {
-      size: 100,
+      size: 20,
       params,
       ...configs,
+      sort,
     })
   ).data.data.searchResults;
