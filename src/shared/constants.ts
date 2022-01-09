@@ -14,26 +14,3 @@ export const IMAGE_CARD_SIZE = {
     height: 246,
   },
 };
-
-export const SIDEBAR_LINKS = [
-  {
-    name: "Home",
-    link: "/",
-    icon: "home",
-  },
-  {
-    name: "Discovery",
-    link: "/discovery",
-    icon: "compass",
-  },
-  {
-    name: "Explore",
-    link: "/explore",
-    icon: "desktop",
-  },
-  {
-    name: "History",
-    link: "/history",
-    icon: "history",
-  },
-];

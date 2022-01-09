@@ -4,7 +4,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { htmlToText } from "../../shared/utils";
 import { searchKeywords } from "../../services/search";
 
-const SearchBox: FC = () => {
+interface SearchBoxProps {
+  autoFocus?: boolean;
+}
+
+const SearchBox: FC<SearchBoxProps> = ({ autoFocus }) => {
   const [inputValue, setInputValue] = useState("");
   const [suggestions, setSuggestions] = useState<string[]>([]);
 
@@ -46,6 +50,7 @@ const SearchBox: FC = () => {
           className="bg-transparent outline-none border border-gray-600 w-full rounded-full py-2 pl-4 pr-8"
           type="text"
           placeholder="Search..."
+          autoFocus={autoFocus}
         />
         <button className="absolute right-2 top-1/2 -translate-y-1/2">
           <i className="fas fa-search text-xl"></i>

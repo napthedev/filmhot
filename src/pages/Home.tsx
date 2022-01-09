@@ -47,7 +47,14 @@ const Home: FC = () => {
               dataLength={data?.length || 0}
               next={() => setSize((prev) => prev + 1)}
               hasMore={!error && data?.slice(-1)?.[0]?.length !== 0}
-              loader={<></>}
+              loader={
+                <>
+                  <Skeleton className="my-8 h-6 w-full max-w-[200px]" />
+                  <div className="overflow-hidden">
+                    <SkeletonSlider />
+                  </div>
+                </>
+              }
             >
               {data
                 .reduce((acc, current) => [...acc, ...current], [])
@@ -106,7 +113,7 @@ const Home: FC = () => {
           )}
         </div>
 
-        <div className="flex-shrink-0 w-[350px] p-8 sticky top-0 h-screen scrollbar overflow-hidden overflow-y-auto">
+        <div className="flex-shrink-0 w-[350px] p-8 sticky top-0 h-screen scrollbar overflow-hidden overflow-y-auto hidden md:block">
           <SearchBox />
           <h1 className="text-xl my-6">Top Searches</h1>
           <TopSearches />
