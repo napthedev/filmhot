@@ -12,7 +12,12 @@ const Category: FC = () => {
     getSearchConfig()
   );
 
-  if (!searchConfig) return <div>Loading</div>;
+  if (!searchConfig)
+    return (
+      <div className="flex-grow flex justify-center items-center">
+        <div className="w-10 h-10 border-[3px] border-t-transparent border-primary rounded-full animate-spin"></div>
+      </div>
+    );
 
   const categoryName = searchConfig[0].screeningItems
     .find((item) => item.id === 5)
