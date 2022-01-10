@@ -1,3 +1,4 @@
+import Error from "../Error";
 import { FC } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Link } from "react-router-dom";
@@ -15,7 +16,7 @@ const SearchResult: FC<SearchResultProps> = ({ query }) => {
     searchWithKeyword(query)
   );
 
-  if (error) return <div>Error</div>;
+  if (error) return <Error />;
 
   return (
     <div className="grid gap-6 grid-cols-sm md:grid-cols-lg">

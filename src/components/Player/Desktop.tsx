@@ -198,7 +198,7 @@ const Player: FC<PlayerProps> = ({ playerKey, sources, subtitles }) => {
               kind="subtitles"
               srcLang="sub"
               label="Subtitle"
-              src={subtitleProxy(subtitles[subtitleIndex].url)}
+              src={subtitleProxy(subtitles[subtitleIndex]?.url)}
               default
             />
           )}

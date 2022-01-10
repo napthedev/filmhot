@@ -1,3 +1,4 @@
+import Error from "../components/Error";
 import { FC } from "react";
 import WatchView from "../components/WatchView";
 import { getMovieDetail } from "../services/movie";
@@ -11,7 +12,7 @@ const Info: FC = () => {
     getMovieDetail(id as string)
   );
 
-  if (error) return <h1>Error</h1>;
+  if (error) return <Error />;
 
   return (
     <WatchView

@@ -1,5 +1,6 @@
 import { FC, useState } from "react";
 
+import Error from "../components/Error";
 import ExploreConfig from "../components/Explore/ExploreConfig";
 import NavBar from "../components/NavBar";
 import Title from "../components/Title";
@@ -7,11 +8,13 @@ import { getSearchConfig } from "../services/explore";
 import useSWR from "swr";
 
 const Explore: FC = () => {
-  const { data: searchConfig } = useSWR("search-config", () =>
+  const { data: searchConfig, error } = useSWR("search-config", () =>
     getSearchConfig()
   );
 
   const [sectionIndex, setSectionIndex] = useState(0);
+
+  if (error) return <Error />;
 
   return (
     <>

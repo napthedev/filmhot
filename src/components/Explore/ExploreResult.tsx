@@ -1,3 +1,4 @@
+import Error from "../Error";
 import { FC } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { LazyLoadImage } from "react-lazy-load-image-component";
@@ -22,17 +23,21 @@ const ExploreResult: FC<ExploreResultProps> = ({ params, configs }) => {
     }`;
   };
 
-  const { data, error, setSize } = useSWRInfinite(getKey, (key) =>
-    advanceSearch(params, configs, key.split("-").slice(-1)[0])
+  const { data, error, setSize } = useSWRInfinite(
+    getKey,
+    (key) => advanceSearch(params, configs, key.split("-").slice(-1)[0]),
+    {
+      revalidateFirstPage: false,
+    }
   );
 
-  if (error) return <div>Error</div>;
+  if (error) return <Error />;
 
   return (
     <InfiniteScroll
       dataLength={data?.length || 0}
       next={() => setSize((size) => size + 1)}
-      hasMore={!error}
+      hasMore={!error && data?.slice(-1)?.[0]?.length !== 0}
       loader={
         <div className="flex justify-center w-full">
           <div className="w-10 h-10 border-[3px] border-primary border-t-transparent rounded-full animate-spin my-10"></div>
@@ -42,10 +47,7 @@ const ExploreResult: FC<ExploreResultProps> = ({ params, configs }) => {
     >
       <div className="w-full grid grid-cols-sm md:grid-cols-lg gap-6">
         {data
-          ?.reduce((acc, current) => {
-            acc.push(...current);
-            return acc;
-          }, [])
+          ?.reduce((acc, current) => [...acc, ...current], [])
           .map((item) => (
             <Link
               title={item.name}

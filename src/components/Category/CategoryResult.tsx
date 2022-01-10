@@ -1,3 +1,4 @@
+import Error from "../Error";
 import { FC } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { LazyLoadImage } from "react-lazy-load-image-component";
@@ -23,13 +24,15 @@ const CategoryResult: FC<CategoryResultProps> = ({ id, categoryName }) => {
     getCategoryItems(id, limit.split("-").slice(-1)[0])
   );
 
+  if (error) return <Error />;
+
   return (
     <>
       <Title value={`Category ${categoryName} - FilmHot`} />
       <InfiniteScroll
         dataLength={data?.length || 0}
         next={() => setSize((size) => size + 1)}
-        hasMore={!error}
+        hasMore={!error && data?.slice(-1)?.[0]?.length !== 0}
         loader={
           <div className="flex justify-center w-full">
             <div className="w-10 h-10 border-[3px] border-primary border-t-transparent rounded-full animate-spin my-10"></div>

@@ -220,3 +220,11 @@ export interface DiscoveryItem {
 
   mediaUrl: string;
 }
+
+export interface AdvanceSearchItem {
+  coverVerticalUrl: string;
+  domainType: number;
+  id: string;
+  name: string;
+  sort: string;
+}

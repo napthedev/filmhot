@@ -17,8 +17,10 @@ import useSWRInfinite from "swr/infinite";
 const Home: FC = () => {
   const getKey = (index: number) => `home-${index || 0}`;
 
-  const { data, error, setSize } = useSWRInfinite(getKey, (key) =>
-    getHome(Number(key.split("-").slice(-1)[0]))
+  const { data, error, setSize } = useSWRInfinite(
+    getKey,
+    (key) => getHome(Number(key.split("-").slice(-1)[0])),
+    { revalidateFirstPage: false }
   );
 
   const [sidebarActive, setSidebarActive] = useState(false);

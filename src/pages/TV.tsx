@@ -1,3 +1,4 @@
+import Error from "../components/Error";
 import { FC } from "react";
 import WatchView from "../components/WatchView";
 import { getTVDetail } from "../services/tv";
@@ -16,7 +17,7 @@ const TV: FC = () => {
     getTVDetail(id as string, episodeIndex)
   );
 
-  if (error) return <h1>Error</h1>;
+  if (error) return <Error />;
 
   return (
     <WatchView

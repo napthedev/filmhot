@@ -1,4 +1,5 @@
-import { SearchConfig } from "../shared/types";
+import { AdvanceSearchItem, SearchConfig } from "../shared/types";
+
 import axios from "../shared/axios";
 
 export const getSearchConfig = async (): Promise<SearchConfig[]> =>
@@ -8,7 +9,7 @@ export const advanceSearch = async (
   params: string,
   configs: { [key: string]: any },
   sort: string
-) =>
+): Promise<AdvanceSearchItem[]> =>
   (
     await axios.post("search/v1/search", {
       size: 20,

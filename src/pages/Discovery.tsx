@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
+import Error from "../components/Error";
 import HlsPlayer from "react-hls-player";
 import ImageFade from "../components/ImageFade";
 import { InView } from "react-intersection-observer";
@@ -28,6 +29,8 @@ const Discovery: FC = () => {
   useEffect(() => {
     setSidebarActive(false);
   }, [location]);
+
+  if (error) return <Error />;
 
   return (
     <>
