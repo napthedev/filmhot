@@ -10,7 +10,7 @@ export const getDiscoveryItems = async (page = 0): Promise<DiscoveryItem[]> => {
 
       headers: { deviceid: Math.random().toString(36).slice(-8) },
     })
-  ).data.data.filter((item) => item.refList?.[0]?.id);
+  ).data.data;
 
   const sources = (
     await axios.post(

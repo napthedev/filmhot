@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 
 import HlsPlayer from "react-hls-player";
 import ImageFade from "../components/ImageFade";
+import { InView } from "react-intersection-observer";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Sidebar from "../components/Sidebar";
 import { getDiscoveryItems } from "../services/discovery";
@@ -84,15 +85,20 @@ const Discovery: FC = () => {
 
                       <p>{item.introduction}</p>
 
-                      <div className="h-0 relative pb-[100%]">
-                        {/* @ts-ignore */}
-                        <HlsPlayer
-                          controls
-                          muted
-                          src={item.mediaUrl}
-                          className="absolute top-0 left-0 w-full h-full object-contain"
-                        />
-                      </div>
+                      <InView threshold={0.5}>
+                        {({ ref, inView }) => (
+                          <div ref={ref} className="h-0 relative pb-[100%]">
+                            {/* @ts-ignore */}
+                            <HlsPlayer
+                              controls
+                              muted
+                              autoPlay={inView}
+                              src={item.mediaUrl}
+                              className="absolute top-0 left-0 w-full h-full object-contain"
+                            />
+                          </div>
+                        )}
+                      </InView>
                     </div>
 
                     <div className="flex flex-col items-center justify-center w-20 gap-5">
@@ -103,19 +109,21 @@ const Discovery: FC = () => {
                         <span>{item.likeCount}</span>
                       </div>
 
-                      <div className="flex flex-col items-center gap-2">
-                        <Link
-                          to={
-                            item.refList[0].category === 0
-                              ? `/movie/${item.refList[0].id}`
-                              : `/tv/${item.refList[0].id}`
-                          }
-                          className="bg-dark-lighten rounded-full h-10 w-10 flex justify-center items-center"
-                        >
-                          <i className="fas fa-external-link-alt"></i>
-                        </Link>
-                        <span>Open</span>
-                      </div>
+                      {item?.refList?.[0]?.id && (
+                        <div className="flex flex-col items-center gap-2">
+                          <Link
+                            to={
+                              item.refList[0].category === 0
+                                ? `/movie/${item.refList[0].id}`
+                                : `/tv/${item.refList[0].id}`
+                            }
+                            className="bg-dark-lighten rounded-full h-10 w-10 flex justify-center items-center"
+                          >
+                            <i className="fas fa-external-link-alt"></i>
+                          </Link>
+                          <span>Open</span>
+                        </div>
+                      )}
                     </div>
                   </div>
                 ))}
