@@ -33,7 +33,7 @@ const Player: FC<PlayerProps> = ({ playerKey, sources, subtitles }) => {
   const [duration, setDuration] = useState(0);
 
   const [volume, setVolume] = useState(
-    isNaN(Number(localStorage.getItem("filmhot-volume")))
+    isNaN(parseInt(localStorage.getItem("filmhot-volume") as string))
       ? 100
       : Number(localStorage.getItem("filmhot-volume"))
   );
