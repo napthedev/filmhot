@@ -1,4 +1,4 @@
-import { FC, useRef } from "react";
+import { FC, useRef, useState } from "react";
 
 import HlsPlayer from "react-hls-player";
 import { subtitleProxy } from "../../shared/constants";
@@ -22,6 +22,7 @@ const MobilePlayer: FC<MobilePlayerProps> = ({
   subtitles,
 }) => {
   const playerRef = useRef<HTMLVideoElement>(null);
+  const [loadedData, setLoadedData] = useState(false);
 
   return (
     <div className="relative w-full h-0 pb-[56.25%]">
@@ -35,6 +36,7 @@ const MobilePlayer: FC<MobilePlayerProps> = ({
           src={sources[0].url}
           className="w-full h-full"
           onLoadedData={() => {
+            setLoadedData(true);
             const currentTime = Number(
               localStorage.getItem(`${playerKey}-time`) as string
             );
@@ -47,15 +49,16 @@ const MobilePlayer: FC<MobilePlayerProps> = ({
             );
           }}
         >
-          {subtitles.map((subtitle, index) => (
-            <track
-              kind="subtitles"
-              srcLang={subtitle.lang}
-              label={subtitle.language}
-              src={subtitleProxy(subtitle.url)}
-              default={index === 0}
-            />
-          ))}
+          {loadedData &&
+            subtitles.map((subtitle, index) => (
+              <track
+                kind="subtitles"
+                srcLang={subtitle.lang}
+                label={subtitle.language}
+                src={subtitleProxy(subtitle.url)}
+                default={index === 0}
+              />
+            ))}
         </HlsPlayer>
       </div>
     </div>

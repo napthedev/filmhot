@@ -32,6 +32,8 @@ const Player: FC<PlayerProps> = ({ playerKey, sources, subtitles }) => {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
 
+  const [loadedData, setLoadedData] = useState(false);
+
   const [volume, setVolume] = useState(
     isNaN(parseInt(localStorage.getItem("filmhot-volume") as string))
       ? 100
@@ -177,6 +179,7 @@ const Player: FC<PlayerProps> = ({ playerKey, sources, subtitles }) => {
           onWaiting={() => setLoading(true)}
           onPlaying={() => setLoading(false)}
           onLoadedData={() => {
+            setLoadedData(true);
             setDuration(playerRef.current?.duration || 0);
             const currentTime = Number(
               localStorage.getItem(`${playerKey}-time`) as string
@@ -193,7 +196,7 @@ const Player: FC<PlayerProps> = ({ playerKey, sources, subtitles }) => {
             setDuration(playerRef.current?.duration || 0);
           }}
         >
-          {subtitleIndex >= 0 && (
+          {subtitleIndex >= 0 && loadedData && (
             <track
               kind="subtitles"
               srcLang="sub"
