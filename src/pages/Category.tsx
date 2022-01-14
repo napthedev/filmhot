@@ -26,7 +26,7 @@ const Category: FC = () => {
     .find((item) => item.id === 5)
     ?.items.find((item) => item.params === id)?.name;
 
-  if (!categoryName) return <div>Error</div>;
+  if (!categoryName) return <Error />;
 
   return (
     <div>
