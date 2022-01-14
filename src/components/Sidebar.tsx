@@ -46,7 +46,7 @@ const Sidebar: FC<SidebarProps> = ({ sidebarActive }) => {
                 : "text-gray-400 hover:text-gray-300"
             }`}
           >
-            <i className={`fas fa-home text-xl`}></i>
+            <i className="fas fa-home text-xl w-[24px]"></i>
             <p className="block sm:hidden xl:block">Home</p>
           </Link>
 
@@ -58,7 +58,7 @@ const Sidebar: FC<SidebarProps> = ({ sidebarActive }) => {
                 : "text-gray-400 hover:text-gray-300"
             }`}
           >
-            <i className={`fas fa-compass text-xl`}></i>
+            <i className="fas fa-compass text-xl w-[24px]"></i>
             <p className="block sm:hidden xl:block">Discovery</p>
           </Link>
 
@@ -70,7 +70,7 @@ const Sidebar: FC<SidebarProps> = ({ sidebarActive }) => {
                 : "text-gray-400 hover:text-gray-300"
             }`}
           >
-            <i className={`fas fa-desktop text-xl`}></i>
+            <i className="fas fa-desktop text-xl w-[24px]"></i>
             <p className="block sm:hidden xl:block">Explore</p>
           </Link>
 
@@ -82,7 +82,7 @@ const Sidebar: FC<SidebarProps> = ({ sidebarActive }) => {
                 : "text-gray-400 hover:text-gray-300"
             }`}
           >
-            <i className={`fas fa-history text-xl`}></i>
+            <i className="fas fa-history text-xl w-[24px]"></i>
             <p className="block sm:hidden xl:block">History</p>
           </Link>
 
@@ -94,7 +94,7 @@ const Sidebar: FC<SidebarProps> = ({ sidebarActive }) => {
                 : "text-gray-400 hover:text-gray-300"
             }`}
           >
-            <i className={`fas fa-search text-xl`}></i>
+            <i className="fas fa-search text-xl w-[24px]"></i>
             <p className="block sm:hidden xl:block">Search</p>
           </Link>
         </div>
@@ -108,15 +108,15 @@ const Sidebar: FC<SidebarProps> = ({ sidebarActive }) => {
             to={`/sign-in?redirect=${encodeURIComponent(location.pathname)}`}
             className="flex items-center cursor-pointer gap-2 transition text-gray-400 hover:text-gray-300"
           >
-            <i className="fas fa-sign-in-alt text-xl"></i>
+            <i className="fas fa-sign-in-alt text-xl w-[24px]"></i>
             <p className="block sm:hidden xl:block">Sign In</p>
           </Link>
         ) : (
           <div className="flex flex-col items-stretch gap-3">
             <div className="flex gap-2 items-center">
               <img
-                className="w-[20px] h-[20px] rounded-full"
-                src={resizeImage(currentUser.photoURL, "20", "20")}
+                className="w-[24px] h-[24px] rounded-full"
+                src={resizeImage(currentUser.photoURL, "24", "24")}
                 alt=""
               />
 
@@ -128,7 +128,7 @@ const Sidebar: FC<SidebarProps> = ({ sidebarActive }) => {
               onClick={handleSignOut}
               className="flex items-center cursor-pointer gap-2 transition text-gray-400 hover:text-gray-300"
             >
-              <i className="fas fa-sign-out-alt text-xl"></i>
+              <i className="fas fa-sign-out-alt text-xl w-[24px]"></i>
               <p className="block sm:hidden xl:block">Sign Out</p>
             </button>
           </div>
