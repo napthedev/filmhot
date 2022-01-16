@@ -2,16 +2,9 @@
 
 AdFree Movie / Anime Watching Website
 
-<p align="center">
-  <img alt="Stars" src="https://badgen.net/github/stars/napthedev/filmhot">
-  <img alt="Forks" src="https://badgen.net/github/forks/napthedev/filmhot">
-  <img alt="Issues" src="https://badgen.net/github/issues/napthedev/filmhot">
-  <img alt="Commits" src="https://badgen.net/github/commits/napthedev/filmhot">
-</p>
-
 ## Live demo
 
-Official website : [https://filmhot.live](https://filmhot.live)
+Official website: [https://filmhot.live](https://filmhot.live)
 
 ## Movie sources
 
