@@ -11,7 +11,7 @@ AdFree Movie / Anime Watching Website
 
 ## Live demo
 
-Official website: [https://filmhot.pages.dev/](https://filmhot.pages.dev/)
+Official website: [https://filmhot.live](https://filmhot.live)
 
 ## Movie sources
 
