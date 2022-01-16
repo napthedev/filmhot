@@ -27,7 +27,7 @@ export const getTVDetail = async (
               params: {
                 category: 1,
                 contentId: id,
-                episodeId: data.episodeVo[0].id,
+                episodeId: data.episodeVo[episodeIndex].id,
                 definition: quality.code,
               },
             })
@@ -37,7 +37,7 @@ export const getTVDetail = async (
   )
     .map((url, index) => ({
       quality: Number(
-        data.episodeVo[0].definitionList[index].description
+        data.episodeVo[episodeIndex].definitionList[index].description
           .toLowerCase()
           .replace("p", "")
       ),
@@ -45,7 +45,7 @@ export const getTVDetail = async (
     }))
     .sort((a, b) => b.quality - a.quality);
 
-  const subtitles = data.episodeVo[0].subtitlingList
+  const subtitles = data.episodeVo[episodeIndex].subtitlingList
     .map((sub: any) => ({
       language: `${sub.language}${sub.translateType ? " (Auto)" : ""}`,
       url: sub.subtitlingUrl,
