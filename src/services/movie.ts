@@ -46,7 +46,7 @@ export const getMovieDetail = async (
 
   const subtitles = data.episodeVo[0].subtitlingList
     .map((sub: any) => ({
-      language: sub.language,
+      language: `${sub.language}${sub.translateType ? " (Auto)" : ""}`,
       url: sub.subtitlingUrl,
       lang: sub.languageAbbr,
     }))
