@@ -74,11 +74,15 @@ const Player: FC<PlayerProps> = ({ playerKey, sources, subtitles }) => {
     setCurrentTime(newTime);
   };
 
-  const handleScreenClicked = () => {
+  const handleScreenClicked = (e) => {
     if (settingsActive) {
       setSettingsActive(false);
     } else {
       setPaused((prev) => !prev);
+    }
+
+    if (e.detail === 2) {
+      setOnFullScreen((prev) => !prev);
     }
   };
 
