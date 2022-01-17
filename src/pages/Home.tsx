@@ -46,15 +46,11 @@ const Home: FC = () => {
         </button>
       </div>
 
-      <div
-        onClick={() => setSidebarActive(false)}
-        className={`bg-[#00000080] z-[5] fixed top-0 left-0 w-full h-full transition duration-500 ${
-          sidebarActive ? "opacity-100 visible" : "opacity-0 invisible"
-        }`}
-      ></div>
-
       <div className="flex">
-        <SideBar sidebarActive={sidebarActive} />
+        <SideBar
+          sidebarActive={sidebarActive}
+          setSidebarActive={setSidebarActive}
+        />
 
         <div className="flex-grow px-[4vw] md:px-8 pb-8 pt-0 overflow-hidden flex flex-col items-stretch">
           {!data || error ? (

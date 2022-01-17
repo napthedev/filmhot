@@ -45,15 +45,11 @@ const Discovery: FC = () => {
         </button>
       </div>
 
-      <div
-        onClick={() => setSidebarActive(false)}
-        className={`bg-[#00000080] z-[5] fixed top-0 left-0 w-full h-full transition duration-500 ${
-          sidebarActive ? "opacity-100 visible" : "opacity-0 invisible"
-        }`}
-      ></div>
-
       <div className="flex">
-        <Sidebar sidebarActive={sidebarActive} />
+        <Sidebar
+          sidebarActive={sidebarActive}
+          setSidebarActive={setSidebarActive}
+        />
 
         <div className="flex-grow py-10 px-[4vw]">
           {!data && (
