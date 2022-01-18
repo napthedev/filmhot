@@ -26,20 +26,20 @@ const Slider: FC<SliderProps> = ({ images, coverType }) => {
     >
       {images.map((item) => (
         <SwiperSlide
-          style={{ width: IMAGE_CARD_SIZE[coverType].width }}
+          style={{ width: IMAGE_CARD_SIZE[coverType || 1].width }}
           key={item.image}
         >
           <Link to={item.link}>
             <div className="rounded-lg overflow-hidden bg-dark-lighten group">
               <LazyLoadImage
                 style={{
-                  width: IMAGE_CARD_SIZE[coverType].width,
-                  height: IMAGE_CARD_SIZE[coverType].height,
+                  width: IMAGE_CARD_SIZE[coverType || 1].width,
+                  height: IMAGE_CARD_SIZE[coverType || 1].height,
                 }}
                 className="group-hover:brightness-75 transition duration-300 object-cover"
                 src={item.image}
-                width={IMAGE_CARD_SIZE[coverType].width}
-                height={IMAGE_CARD_SIZE[coverType].height}
+                width={IMAGE_CARD_SIZE[coverType || 1].width}
+                height={IMAGE_CARD_SIZE[coverType || 1].height}
                 effect="opacity"
                 alt=""
               />
