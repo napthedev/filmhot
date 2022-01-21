@@ -12,10 +12,12 @@ import SignIn from "./pages/SignIn";
 import TV from "./pages/TV";
 import { auth } from "./shared/firebase";
 import { onAuthStateChanged } from "firebase/auth";
+import { useLocation } from "react-router-dom";
 import { useStore } from "./store";
 
 const App: FC = () => {
   const setCurrentUser = useStore((state) => state.setCurrentUser);
+  const location = useLocation();
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -31,6 +33,10 @@ const App: FC = () => {
       }
     });
   }, []);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname, location.search]);
 
   return (
     <Routes>
