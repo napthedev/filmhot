@@ -46,8 +46,8 @@ const Explore: FC = () => {
               ))}
             </div>
             <ExploreConfig
-              key={sectionIndex}
               config={searchConfig[sectionIndex]}
+              sectionIndex={sectionIndex}
             />
           </div>
         )}

@@ -5,9 +5,10 @@ import { SearchConfig } from "../../shared/types";
 
 interface ExploreConfigProps {
   config: SearchConfig;
+  sectionIndex: number;
 }
 
-const ExploreConfig: FC<ExploreConfigProps> = ({ config }) => {
+const ExploreConfig: FC<ExploreConfigProps> = ({ config, sectionIndex }) => {
   const [configs, setConfigs] = useState(
     config.screeningItems.reduce((acc, current) => {
       acc[current.items[0].screeningType] = current.items[0].params;
@@ -47,7 +48,11 @@ const ExploreConfig: FC<ExploreConfigProps> = ({ config }) => {
           </select>
         ))}
       </div>
-      <ExploreResult params={config.params} configs={configs} />
+      <ExploreResult
+        params={config.params}
+        configs={configs}
+        sectionIndex={sectionIndex}
+      />
     </>
   );
 };

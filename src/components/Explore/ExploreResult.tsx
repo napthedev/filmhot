@@ -12,13 +12,18 @@ interface ExploreResultProps {
   configs: {
     [key: string]: any;
   };
+  sectionIndex: number;
 }
 
-const ExploreResult: FC<ExploreResultProps> = ({ params, configs }) => {
+const ExploreResult: FC<ExploreResultProps> = ({
+  params,
+  configs,
+  sectionIndex,
+}) => {
   const getKey = (_, previousPageData: any) => {
     if (previousPageData && previousPageData.length === 0) return null;
 
-    return `explore-${JSON.stringify(configs)}-${
+    return `explore-${sectionIndex}-${JSON.stringify(configs)}-${
       previousPageData?.slice(-1)?.[0]?.sort || ""
     }`;
   };
