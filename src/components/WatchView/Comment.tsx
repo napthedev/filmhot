@@ -120,7 +120,7 @@ const Comment: FC<CommentProps> = ({ data, episodeIndex }) => {
             <div className="flex items-center gap-3 h-12 border border-gray-600 rounded-full my-6 px-3">
               <img
                 className="w-[30px] h-[30px] rounded-full"
-                src="/avatar.png"
+                src="/default-avatar.png"
                 alt=""
               />
               <p>
