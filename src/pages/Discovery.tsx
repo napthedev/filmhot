@@ -92,6 +92,7 @@ const Discovery: FC = () => {
                               controls
                               muted
                               autoPlay={inView}
+                              playsInline
                               src={item.mediaUrl}
                               className="absolute top-0 left-0 w-full h-full object-contain"
                             />
