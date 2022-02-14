@@ -92,20 +92,28 @@ const Home: FC = () => {
                     >
                       <BannerSlider
                         images={
-                          section.recommendContentVOList.map((item) => {
-                            const searchParams = new URLSearchParams(
-                              new URL(item.jumpAddress).search
-                            );
+                          (section.recommendContentVOList
+                            .map((item) => {
+                              const searchParams = new URLSearchParams(
+                                new URL(item.jumpAddress).search
+                              );
 
-                            return {
-                              title: item.title,
-                              image: item.imageUrl,
-                              link:
-                                searchParams.get("type") === "0"
-                                  ? `/movie/${searchParams.get("id")}`
-                                  : `/tv/${searchParams.get("id")}`,
-                            };
-                          }) || []
+                              if (!searchParams.get("id")) return null;
+
+                              return {
+                                title: item.title,
+                                image: item.imageUrl,
+                                link:
+                                  searchParams.get("type") === "0"
+                                    ? `/movie/${searchParams.get("id")}`
+                                    : `/tv/${searchParams.get("id")}`,
+                              };
+                            })
+                            .filter(Boolean) as {
+                            title: string;
+                            image: string;
+                            link: string;
+                          }[]) || []
                         }
                       />
                     </div>
