@@ -14,6 +14,7 @@ import {
 
 import { calculateCreatedTime } from "../../shared/utils";
 import { db } from "../../shared/firebase";
+import { resizeImage } from "../../shared/constants";
 import { useCollectionQuery } from "../../hooks/useCollectionQuery";
 import { useStore } from "../../store";
 
@@ -87,7 +88,7 @@ const Comment: FC<CommentProps> = ({ data, episodeIndex }) => {
             >
               <img
                 className="w-[30px] h-[30px] rounded-full absolute top-1/2 -translate-y-1/2 left-[10px]"
-                src={currentUser.photoURL}
+                src={resizeImage(currentUser.photoURL, "30", "30")}
                 alt=""
               />
 
@@ -144,7 +145,7 @@ const Comment: FC<CommentProps> = ({ data, episodeIndex }) => {
                 <div key={doc.id} className="flex gap-2">
                   <img
                     className="w-[50px] h-[50px] rounded-full"
-                    src={docData.user.photoURL}
+                    src={resizeImage(docData.user.photoURL, "50", "50")}
                     alt=""
                   />
                   <div className="flex flex-col items-stretch">

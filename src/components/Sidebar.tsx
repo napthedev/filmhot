@@ -2,6 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 
 import { FC } from "react";
 import { auth } from "../shared/firebase";
+import { resizeImage } from "../shared/constants";
 import { signOut } from "firebase/auth";
 import { useStore } from "../store";
 
@@ -117,7 +118,7 @@ const Sidebar: FC<SidebarProps> = ({ sidebarActive, setSidebarActive }) => {
               <div className="flex gap-2 items-center">
                 <img
                   className="w-[24px] h-[24px] rounded-full"
-                  src={currentUser.photoURL}
+                  src={resizeImage(currentUser.photoURL, "24", "24")}
                   alt=""
                 />
 

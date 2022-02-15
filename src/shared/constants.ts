@@ -1,6 +1,6 @@
 export const resizeImage = (url: string, width = "", height = "") =>
   `https://images.weserv.nl/?url=${encodeURIComponent(
-    url.replace("https://", "").replace("http://", "")
+    url
   )}&w=${width}&h=${height}&fit=outside`;
 
 export const subtitleProxy = (url: string) =>
