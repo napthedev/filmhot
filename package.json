@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ducanh2912/react-hls-player": "^3.2.2",
     "axios": "^0.27.2",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "next": "12.2.5",
@@ -17,6 +18,8 @@
     "react-dom": "18.2.0",
     "react-icons": "^4.4.0",
     "react-intersection-observer": "^9.4.0",
+    "react-tuby": "^0.1.24",
+    "subtitle-converter": "^3.0.11",
     "swiper": "^8.3.2",
     "swr": "^1.3.0"
   },

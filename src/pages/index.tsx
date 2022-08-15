@@ -112,7 +112,6 @@ const Home: NextPage<HomeProps> = ({ initialData, topSearches }) => {
 
           {data?.slice(-1)?.[0]?.length !== 0 && (
             <InView
-              fallbackInView
               onChange={(inView) => {
                 if (
                   inView &&
@@ -123,6 +122,7 @@ const Home: NextPage<HomeProps> = ({ initialData, topSearches }) => {
                 }
               }}
               rootMargin="0px 0px 1000px 0px"
+              threshold={[0, 0.25, 0.5, 0.75, 1]}
             >
               {({ ref }) => <InfiniteLoader forwardedRef={ref} />}
             </InView>
@@ -160,6 +160,7 @@ export const getStaticProps = async () => {
   } catch (error) {
     return {
       props: {},
+      revalidate: 60,
       notFound: true,
     };
   }

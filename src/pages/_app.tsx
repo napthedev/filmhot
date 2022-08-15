@@ -1,4 +1,5 @@
 import "../styles/globals.css";
+import "react-tuby/css/main.css";
 import "swiper/css";
 import "swiper/css/navigation";
 
