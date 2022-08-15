@@ -18,7 +18,7 @@ interface SidebarProps {
 }
 
 const Sidebar: FC<SidebarProps> = ({ sidebarActive, setSidebarActive }) => {
-  const currentUser = null;
+  const currentUser = null as any;
 
   const router = useRouter();
 
