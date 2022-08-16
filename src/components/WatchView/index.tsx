@@ -1,4 +1,3 @@
-import HlsPlayer from "@ducanh2912/react-hls-player";
 import dynamic from "next/dynamic";
 import { FC, useEffect } from "react";
 
@@ -94,11 +93,7 @@ const WatchView: FC<WatchViewProps> = ({
                         )}`,
                       })) || []
                     }
-                  >
-                    {(ref, props) => (
-                      <HlsPlayer playerRef={ref} {...props} src={props.src} />
-                    )}
-                  </Player>
+                  ></Player>
                 </div>
               </div>
 

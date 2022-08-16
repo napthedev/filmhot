@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import Image, { ImageProps } from "next/future/image";
 import { FC, useState } from "react";
 
@@ -7,9 +8,14 @@ const ImageFade: FC<ImageProps> = ({ alt, className, ...props }) => {
   return (
     <Image
       {...props}
-      className={`${className} ${
-        isLoaded ? "opacity-100" : "opacity-0"
-      } transition duration-200`}
+      className={classNames(
+        className,
+        {
+          "opacity-100": isLoaded,
+          "opacity-0": !isLoaded,
+        },
+        "transition duration-200"
+      )}
       alt={alt}
       onLoad={() => setIsLoaded(true)}
       onLoadCapture={() => setIsLoaded(true)}

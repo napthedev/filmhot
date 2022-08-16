@@ -14,8 +14,9 @@ const TopSearches: FC<TopSearchesProps> = ({ topSearches }) => {
     <div className="flex flex-col gap-3">
       {topSearches.map((item) => (
         <Link
-          prefetch={false}
-          href={item.domainType === 0 ? `/movie/${item.id}` : `/tv/${item.id}`}
+          href={
+            item.domainType === 0 ? `/movie/${item.id}` : `/tv/${item.id}/0`
+          }
           key={item.id}
         >
           <a className="flex gap-2 hover:brightness-75 transition duration-300">

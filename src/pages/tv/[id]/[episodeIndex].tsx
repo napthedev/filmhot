@@ -4,35 +4,45 @@ import type {
   InferGetStaticPropsType,
   NextPage,
 } from "next";
+import { useRouter } from "next/router";
 
 import WatchView from "@/components/WatchView";
 import { getMovieDetail } from "@/services/movie";
 
-const MoviePage: NextPage<MoviePageProps> = ({ info }) => {
+const TVPage: NextPage<TVPageProps> = ({ info }) => {
+  const router = useRouter();
+
   return (
     <WatchView
       data={info?.data!}
       sources={info?.sources!}
       subtitles={info?.subtitles!}
+      episodeIndex={Number(router.query.episodeIndex)}
     />
   );
 };
 
-export default MoviePage;
+export default TVPage;
 
-type MoviePageProps = InferGetStaticPropsType<typeof getStaticProps>;
+type TVPageProps = InferGetStaticPropsType<typeof getStaticProps>;
 
 export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
   const id = params?.id as string;
+  const episodeIndex = params?.episodeIndex as string;
 
-  if (!id || typeof id !== "string")
+  if (
+    !id ||
+    typeof id !== "string" ||
+    !episodeIndex ||
+    Number.isNaN(episodeIndex)
+  )
     return {
       notFound: true,
       props: {},
     };
 
   try {
-    const info = await getMovieDetail(id, 0);
+    const info = await getMovieDetail(id, 1, +episodeIndex);
 
     return {
       props: {

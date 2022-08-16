@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { FC, FormEvent, useEffect, useRef, useState } from "react";
@@ -68,16 +69,13 @@ const SearchBox: FC<SearchBoxProps> = ({ autoFocus }) => {
         <div className="absolute z-10 top-full left-0 w-full bg-dark-lighten rounded overflow-x-hidden overflow-y-auto max-h-[200px] flex-col items-stretch hidden group-focus-within:flex">
           {suggestions.map((suggestion, index) => (
             <Link
-              prefetch={false}
               key={index}
               href={{ pathname: "/search", query: { q: suggestion } }}
             >
               <a
-                className={`text-left p-2 w-full ${
-                  index !== suggestions.length - 1
-                    ? "border-b border-gray-500"
-                    : ""
-                }`}
+                className={classNames("text-left p-2 w-full", {
+                  "border-b border-gray-500": index !== suggestions.length - 1,
+                })}
               >
                 {suggestion}
               </a>

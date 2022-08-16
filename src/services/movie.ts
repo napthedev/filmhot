@@ -4,6 +4,8 @@ import axios from "./client";
 
 export const getMovieDetail = async (
   id: string,
+  category: 0 | 1,
+  episodeIndex = 0,
   retryCount = 0
 ): Promise<{
   data: MovieDetail;
@@ -18,19 +20,19 @@ export const getMovieDetail = async (
     await axios.get("movieDrama/get", {
       params: {
         id,
-        category: 0,
+        category,
       },
     })
   ).data.data;
 
   const sources = (
     await Promise.all(
-      data.episodeVo[0].definitionList.map(
+      data.episodeVo[episodeIndex].definitionList.map(
         async (quality: any) =>
           (
             await axios.get("media/previewInfo", {
               params: {
-                category: 0,
+                category,
                 contentId: id,
                 episodeId: data.episodeVo[0].id,
                 definition: quality.code,
@@ -42,7 +44,7 @@ export const getMovieDetail = async (
   )
     .map((url, index) => ({
       quality: Number(
-        data.episodeVo[0].definitionList[index].description
+        data.episodeVo[episodeIndex].definitionList[index].description
           .toLowerCase()
           .replace("p", "")
       ),
@@ -51,10 +53,10 @@ export const getMovieDetail = async (
     .sort((a, b) => b.quality - a.quality);
 
   if (sources.some((item) => item.url.startsWith("http:"))) {
-    return await getMovieDetail(id, retryCount + 1);
+    return await getMovieDetail(id, category, episodeIndex, retryCount + 1);
   }
 
-  const subtitles = data.episodeVo[0].subtitlingList
+  const subtitles = data.episodeVo[episodeIndex].subtitlingList
     .map((sub: any) => ({
       language: `${sub.language}${sub.translateType ? " (Auto)" : ""}`,
       url: sub.subtitlingUrl,
@@ -74,7 +76,11 @@ export const getMovieDetail = async (
     }, []);
 
   return {
-    data,
+    data: {
+      ...data,
+      // Info of all episode can be huge, up to 2MB
+      episodeVo: data.episodeVo.length,
+    },
     sources,
     subtitles,
   };

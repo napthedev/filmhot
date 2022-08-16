@@ -72,7 +72,7 @@ const Home: NextPage<HomeProps> = ({ initialData, topSearches }) => {
                           link:
                             searchParams.get("type") === "0"
                               ? `/movie/${searchParams.get("id")}`
-                              : `/tv/${searchParams.get("id")}`,
+                              : `/tv/${searchParams.get("id")}/0`,
                         };
                       })
                       .filter(Boolean) as {
@@ -101,7 +101,7 @@ const Home: NextPage<HomeProps> = ({ initialData, topSearches }) => {
                       link:
                         searchParams.get("type") === "0"
                           ? `/movie/${searchParams.get("id")}`
-                          : `/tv/${searchParams.get("id")}`,
+                          : `/tv/${searchParams.get("id")}/0`,
                     };
                   })}
                   coverType={section.coverType}
