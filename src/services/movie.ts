@@ -10,7 +10,7 @@ export const getMovieDetail = async (
   sources: { quality: number; url: string }[];
   subtitles: { language: string; url: string; lang: string }[];
 }> => {
-  if (retryCount > 3) {
+  if (retryCount > 10) {
     throw new Error();
   }
 
