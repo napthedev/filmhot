@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@ducanh2912/react-hls-player": "^3.2.2",
+    "@ducanh2912/react-hls-player": "^3.2.4",
     "axios": "^0.27.2",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "next": "12.2.5",
