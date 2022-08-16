@@ -26,7 +26,7 @@ const MetaData: FC<MetaDataProps> = ({ data, episodeIndex }) => {
 
       <div className="flex gap-3 flex-wrap">
         {data.tagList.map((tag) => (
-          <Link href={`/category/${tag.id}`} key={tag.id}>
+          <Link prefetch={false} href={`/category/${tag.id}`} key={tag.id}>
             <a className="bg-dark-lighten rounded-full px-3 py-1 hover:brightness-125 transition duration-300">
               {tag.name}
             </a>
@@ -41,7 +41,11 @@ const MetaData: FC<MetaDataProps> = ({ data, episodeIndex }) => {
           <h1 className="text-xl my-3">Episodes</h1>
           <div className="flex max-w-[92vw] md:max-w-[calc(88vw-300px)] gap-3 overflow-auto">
             {data.episodeVo.map((_, index) => (
-              <Link href={`/tv/${data.id}?episode=${index}`} key={index}>
+              <Link
+                prefetch={false}
+                href={`/tv/${data.id}?episode=${index}`}
+                key={index}
+              >
                 <a
                   className={`px-4 py-[8px] bg-dark-lighten rounded hover:brightness-125 transition duration-300 ${
                     index === episodeIndex ? "!bg-primary text-white" : ""

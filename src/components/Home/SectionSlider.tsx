@@ -30,7 +30,7 @@ const Slider: FC<SliderProps> = ({ images, coverType }) => {
           style={{ width: IMAGE_CARD_SIZE[coverType || 1].width }}
           key={item.image}
         >
-          <Link href={item.link}>
+          <Link href={item.link} prefetch={false}>
             <a className="block rounded-lg overflow-hidden bg-dark-lighten group">
               <ImageFade
                 style={{

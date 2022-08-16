@@ -29,7 +29,7 @@ const Sidebar: FC<SidebarProps> = ({ sidebarActive, setSidebarActive }) => {
           sidebarActive ? "translate-x-full" : "translate-x-0"
         }`}
       >
-        <Link href="/">
+        <Link href="/" prefetch={false}>
           <a className="flex gap-2 items-center">
             <img className="w-6 h-6" src="/icon.png" alt="" />
             <p className="font-semibold text-xl block sm:hidden xl:block">
@@ -44,7 +44,7 @@ const Sidebar: FC<SidebarProps> = ({ sidebarActive, setSidebarActive }) => {
           </p>
 
           <div className="flex flex-col items-stretch gap-3">
-            <Link href="/">
+            <Link href="/" prefetch={false}>
               <a
                 className={`flex items-center gap-2 transition ${
                   router.pathname === "/"
@@ -57,7 +57,7 @@ const Sidebar: FC<SidebarProps> = ({ sidebarActive, setSidebarActive }) => {
               </a>
             </Link>
 
-            <Link href="/discovery">
+            <Link href="/discovery" prefetch={false}>
               <a
                 className={`flex items-center gap-2 transition ${
                   router.pathname === "/discovery"
@@ -70,7 +70,7 @@ const Sidebar: FC<SidebarProps> = ({ sidebarActive, setSidebarActive }) => {
               </a>
             </Link>
 
-            <Link href="/explore">
+            <Link href="/explore" prefetch={false}>
               <a
                 className={`flex items-center gap-2 transition ${
                   router.pathname === "/explore"
@@ -83,7 +83,7 @@ const Sidebar: FC<SidebarProps> = ({ sidebarActive, setSidebarActive }) => {
               </a>
             </Link>
 
-            <Link href="/history">
+            <Link href="/history" prefetch={false}>
               <a
                 className={`flex items-center gap-2 transition ${
                   router.pathname === "/history"
@@ -96,7 +96,7 @@ const Sidebar: FC<SidebarProps> = ({ sidebarActive, setSidebarActive }) => {
               </a>
             </Link>
 
-            <Link href="/search">
+            <Link href="/search" prefetch={false}>
               <a
                 className={`md:!hidden flex items-center gap-2 transition ${
                   router.pathname === "/search"
@@ -122,6 +122,7 @@ const Sidebar: FC<SidebarProps> = ({ sidebarActive, setSidebarActive }) => {
                   redirect: router.asPath,
                 },
               }}
+              prefetch={false}
               className="flex items-center cursor-pointer gap-2 transition text-gray-400 hover:text-gray-300"
             >
               <a className="flex items-center gap-2">

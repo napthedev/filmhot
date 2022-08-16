@@ -68,6 +68,7 @@ const SearchBox: FC<SearchBoxProps> = ({ autoFocus }) => {
         <div className="absolute z-10 top-full left-0 w-full bg-dark-lighten rounded overflow-x-hidden overflow-y-auto max-h-[200px] flex-col items-stretch hidden group-focus-within:flex">
           {suggestions.map((suggestion, index) => (
             <Link
+              prefetch={false}
               key={index}
               href={{ pathname: "/search", query: { q: suggestion } }}
             >

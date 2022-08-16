@@ -14,6 +14,7 @@ const TopSearches: FC<TopSearchesProps> = ({ topSearches }) => {
     <div className="flex flex-col gap-3">
       {topSearches.map((item) => (
         <Link
+          prefetch={false}
           href={item.domainType === 0 ? `/movie/${item.id}` : `/tv/${item.id}`}
           key={item.id}
         >

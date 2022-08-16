@@ -24,7 +24,7 @@ const BannerSlider: FC<SliderProps> = ({ images }) => {
     >
       {images.map((item) => (
         <SwiperSlide key={item.image}>
-          <Link href={item.link}>
+          <Link href={item.link} prefetch={false}>
             <a className="block w-full h-0 pb-[42%] relative">
               <ImageFade
                 height={Infinity}

@@ -20,6 +20,7 @@ const Similar: FC<SimilarProps> = ({ data }) => {
                 .filter((item) => item.id !== data.id)
                 .map((ref) => (
                   <Link
+                    prefetch={false}
                     key={ref.id}
                     href={`/${ref.category === 0 ? "movie" : "tv"}/${ref.id}`}
                   >
@@ -49,6 +50,7 @@ const Similar: FC<SimilarProps> = ({ data }) => {
           <div className="max-h-[60vh] overflow-x-hidden overflow-y-auto flex flex-col items-stretch gap-2">
             {data?.likeList.map((like) => (
               <Link
+                prefetch={false}
                 key={like.id}
                 href={`/${like.category === 0 ? "movie" : "tv"}/${like.id}`}
               >
