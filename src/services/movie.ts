@@ -5,17 +5,12 @@ import axios from "./client";
 export const getMovieDetail = async (
   id: string,
   category: 0 | 1,
-  episodeIndex = 0,
-  retryCount = 0
+  episodeIndex = 0
 ): Promise<{
   data: MovieDetail;
   sources: { quality: number; url: string }[];
   subtitles: { language: string; url: string; lang: string }[];
 }> => {
-  if (retryCount > 10) {
-    throw new Error();
-  }
-
   const data = (
     await axios.get("movieDrama/get", {
       params: {
@@ -53,7 +48,7 @@ export const getMovieDetail = async (
     .sort((a, b) => b.quality - a.quality);
 
   if (sources.some((item) => item.url.startsWith("http:"))) {
-    return await getMovieDetail(id, category, episodeIndex, retryCount + 1);
+    return await getMovieDetail(id, category, episodeIndex);
   }
 
   const subtitles = data.episodeVo[episodeIndex].subtitlingList

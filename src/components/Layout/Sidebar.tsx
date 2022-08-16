@@ -15,7 +15,7 @@ import {
 
 interface SidebarProps {
   sidebarActive: boolean;
-  setSidebarActive: (state: boolean) => void;
+  setSidebarActive: Function;
 }
 
 const Sidebar: FC<SidebarProps> = ({ sidebarActive, setSidebarActive }) => {
