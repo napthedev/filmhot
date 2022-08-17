@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { FC, useEffect, useState } from "react";
+import { FaTrash } from "react-icons/fa";
 
 import NavBar from "@/components/Layout/Navbar";
 import ImageFade from "@/components/Shared/ImageFade";
@@ -32,8 +33,11 @@ const History: FC = () => {
         <div className="flex justify-between mb-6">
           <h1 className="text-3xl">Watch history</h1>
 
-          <button onClick={clearHistory} className="text-primary">
-            <i className="fas fa-trash"></i> <span>Clear</span>
+          <button
+            onClick={clearHistory}
+            className="text-primary flex items-center gap-1"
+          >
+            <FaTrash /> <span>Clear</span>
           </button>
         </div>
         {data.length === 0 ? (

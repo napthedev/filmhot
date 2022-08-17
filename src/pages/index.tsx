@@ -162,8 +162,8 @@ export const getStaticProps = async () => {
 
     return {
       props: {
-        trpcState: ssg.dehydrate(),
         topSearches,
+        trpcState: ssg.dehydrate(),
       },
       revalidate: 300,
     };
