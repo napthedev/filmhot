@@ -58,7 +58,11 @@ const MetaData: FC<MetaDataProps> = ({ data, episodeIndex }) => {
             })}
           >
             {new Array(data.episodeVo).fill("").map((_, index) => (
-              <Link href={`/tv/${data.id}/${index}`} key={index}>
+              <Link
+                prefetch={false}
+                href={`/tv/${data.id}/${index}`}
+                key={index}
+              >
                 <a
                   {...(index === data.episodeVo - 1
                     ? { ref: lastEpisodeRef }

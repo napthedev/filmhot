@@ -35,7 +35,7 @@ const Slider: FC<SliderProps> = ({ images, coverType }) => {
           })}
           key={item.image}
         >
-          <Link href={item.link}>
+          <Link href={item.link} prefetch={false}>
             <a className="block rounded-lg overflow-hidden bg-dark-lighten group">
               <ImageFade
                 style={{
