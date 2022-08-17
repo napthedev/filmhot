@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import Image from "next/future/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { FC } from "react";
@@ -12,6 +11,8 @@ import {
   FaSignInAlt,
   FaSignOutAlt,
 } from "react-icons/fa";
+
+import ImageFade from "../Shared/ImageFade";
 
 interface SidebarProps {
   sidebarActive: boolean;
@@ -144,7 +145,7 @@ const Sidebar: FC<SidebarProps> = ({ sidebarActive, setSidebarActive }) => {
           ) : (
             <div className="flex flex-col items-stretch gap-3">
               <div className="flex gap-2 items-center">
-                <Image
+                <ImageFade
                   src={currentUser.photoURL}
                   width={24}
                   height={24}

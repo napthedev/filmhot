@@ -1,8 +1,8 @@
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
-import Image from "next/future/image";
 import Link from "next/link";
 import { FC } from "react";
 
+import ImageFade from "@/components/Shared/ImageFade";
 import { getTopSearches, searchWithKeyword } from "@/services/search";
 
 import NavBar from "../components/Layout/Navbar";
@@ -44,14 +44,14 @@ const Search: FC<SearchProps> = ({ result, topSearches, query }) => {
                   href={
                     item.domainType === 0
                       ? `/movie/${item.id}`
-                      : `/tv/${item.id}`
+                      : `/tv/${item.id}/0`
                   }
                   key={item.id}
                 >
                   <a className="relative h-0 pb-[163%] bg-dark-lighten rounded overflow-hidden group">
                     <div className="absolute top-0 left-0 w-full h-full flex flex-col items-stretch">
                       <div className="relative w-full h-0 pb-[140%] flex-shrink-0 group-hover:brightness-[80%] transition duration-300">
-                        <Image
+                        <ImageFade
                           width={250}
                           height={Infinity}
                           className="absolute top-0 left-0 w-full h-full object-cover"
