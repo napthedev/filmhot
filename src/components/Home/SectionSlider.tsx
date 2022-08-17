@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import Link from "next/link";
 import { FC } from "react";
 import { Navigation } from "swiper";
@@ -23,11 +24,15 @@ const Slider: FC<SliderProps> = ({ images, coverType }) => {
       navigation
       slidesPerView="auto"
       slidesPerGroupAuto
-      spaceBetween={30}
     >
-      {images.map((item) => (
+      {images.map((item, index) => (
         <SwiperSlide
-          style={{ width: IMAGE_CARD_SIZE[coverType || 1].width }}
+          style={{
+            width: IMAGE_CARD_SIZE[coverType || 1].width,
+          }}
+          className={classNames({
+            "!ml-[30px]": index !== 0,
+          })}
           key={item.image}
         >
           <Link href={item.link}>

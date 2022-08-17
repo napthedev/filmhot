@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import { FC, Ref, useEffect, useState } from "react";
 import { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -22,10 +23,14 @@ const InfiniteLoader: FC<{ forwardedRef: Ref<HTMLDivElement> }> = ({
           navigation
           slidesPerView="auto"
           slidesPerGroupAuto
-          spaceBetween={30}
         >
           {[...new Array(Math.ceil(windowWidth / 200))].map((_, index) => (
-            <SwiperSlide className="!w-[175px]" key={index}>
+            <SwiperSlide
+              className={classNames("!w-[175px]", {
+                "!ml-[30px]": index !== 0,
+              })}
+              key={index}
+            >
               <Skeleton className="w-[175px] h-[246px] rounded-xl" />
             </SwiperSlide>
           ))}
