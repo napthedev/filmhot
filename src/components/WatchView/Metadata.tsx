@@ -40,11 +40,9 @@ const MetaData: FC<MetaDataProps> = ({ data, episodeIndex }) => {
 
       <div className="flex gap-3 flex-wrap">
         {data.tagList.map((tag) => (
-          <Link href={`/category/${tag.id}`} key={tag.id}>
-            <a className="bg-dark-lighten rounded-full px-3 py-1 hover:brightness-125 transition duration-300">
-              {tag.name}
-            </a>
-          </Link>
+          <span key={tag.id} className="bg-dark-lighten rounded-full px-3 py-1">
+            {tag.name}
+          </span>
         ))}
       </div>
 

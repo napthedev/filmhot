@@ -3,8 +3,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { FC } from "react";
 import {
-  FaCompass,
-  FaDesktop,
   FaHistory,
   FaHome,
   FaSearch,
@@ -63,34 +61,6 @@ const Sidebar: FC<SidebarProps> = ({ sidebarActive, setSidebarActive }) => {
               </a>
             </Link>
 
-            <Link href="/discovery">
-              <a
-                className={classNames("flex items-center gap-2 transition", {
-                  "text-primary border-r-4 border-primary hover:brightness-125":
-                    router.pathname === "/discovery",
-                  "text-gray-400 hover:text-gray-300":
-                    router.pathname !== "/discovery",
-                })}
-              >
-                <FaCompass className="w-6 h-6 fill-current" />
-                <p className="block sm:hidden xl:block">Discovery</p>
-              </a>
-            </Link>
-
-            <Link href="/explore">
-              <a
-                className={classNames("flex items-center gap-2 transition", {
-                  "text-primary border-r-4 border-primary hover:brightness-125":
-                    router.pathname === "/explore",
-                  "text-gray-400 hover:text-gray-300":
-                    router.pathname !== "/explore",
-                })}
-              >
-                <FaDesktop className="w-6 h-6 fill-current" />
-                <p className="block sm:hidden xl:block">Explore</p>
-              </a>
-            </Link>
-
             <Link href="/history">
               <a
                 className={classNames("flex items-center gap-2 transition", {
@@ -135,9 +105,8 @@ const Sidebar: FC<SidebarProps> = ({ sidebarActive, setSidebarActive }) => {
                   redirect: router.asPath,
                 },
               }}
-              className="flex items-center cursor-pointer gap-2 transition text-gray-400 hover:text-gray-300"
             >
-              <a className="flex items-center gap-2">
+              <a className="flex items-center gap-2 transition text-gray-400 hover:text-gray-300">
                 <FaSignInAlt className="w-6 h-6 fill-current" />
                 <p className="block sm:hidden xl:block">Sign In</p>
               </a>
