@@ -22,13 +22,3 @@ export const getHome = async (page = 0): Promise<HomeSection[]> => {
     return [];
   }
 };
-
-export const getHomeFromClient = async (page = 0): Promise<HomeSection[]> =>
-  (
-    await axios.get("/api/home", {
-      params: {
-        page,
-      },
-      baseURL: location.origin,
-    })
-  ).data;

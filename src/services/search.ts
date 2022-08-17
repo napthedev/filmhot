@@ -22,17 +22,5 @@ export const searchWithKeyword = async (
     })
   ).data.data.searchResults;
 
-export const getSearchKeywordsFromClient = async (
-  keyword: string
-): Promise<string[]> =>
-  (
-    await axios.get("/api/searchKeywords", {
-      baseURL: location.origin,
-      params: {
-        keyword,
-      },
-    })
-  ).data;
-
 export const getTopSearches = async (): Promise<TopSearches> =>
   (await axios.get("search/v1/searchLeaderboard")).data.data.list;

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { FC } from "react";
+import { FaSearch } from "react-icons/fa";
 
 import SearchBox from "../Search/SearchBox";
 
@@ -15,7 +16,7 @@ const NavBar: FC = () => {
 
       <Link href="/search">
         <a className="block md:hidden">
-          <i className="fas fa-search text-2xl"></i>
+          <FaSearch className="w-6 h-6" />
         </a>
       </Link>
 

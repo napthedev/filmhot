@@ -1,9 +1,10 @@
+import { createSSGHelpers } from "@trpc/react/ssg";
 import type { InferGetStaticPropsType, NextPage } from "next";
 import Link from "next/link";
 import { useState } from "react";
 import { FaBars } from "react-icons/fa";
 import { InView } from "react-intersection-observer";
-import useSWRInfinite from "swr/infinite";
+import superjson from "superjson";
 
 import BannerSlider from "@/components/Home/BannerSlider";
 import InfiniteLoader from "@/components/Home/InfiniteLoader";
@@ -11,20 +12,20 @@ import SectionSlider from "@/components/Home/SectionSlider";
 import Sidebar from "@/components/Layout/Sidebar";
 import SearchBox from "@/components/Search/SearchBox";
 import TopSearches from "@/components/Search/TopSearches";
+import { appRouter } from "@/server/createRouter";
 import { getTopSearches } from "@/services/search";
+import { trpc } from "@/utils/trpc";
 
-import { getHome, getHomeFromClient } from "../services/home";
-
-const Home: NextPage<HomeProps> = ({ initialData, topSearches }) => {
+const Home: NextPage<HomeProps> = ({ topSearches }) => {
   const [sidebarActive, setSidebarActive] = useState(false);
 
-  const { data, setSize, size } = useSWRInfinite(
-    (index: number) => `${index || 0}`,
-    (key) => getHomeFromClient(Number(key)),
+  const { data, fetchNextPage, isFetchingNextPage } = trpc.useInfiniteQuery(
+    ["home.infinite", {}],
     {
-      revalidateFirstPage: false,
-      fallbackData: [initialData!],
-      revalidateAll: false,
+      getNextPageParam: (_, allPages) => allPages.length,
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+      refetchOnReconnect: false,
     }
   );
 
@@ -50,7 +51,7 @@ const Home: NextPage<HomeProps> = ({ initialData, topSearches }) => {
         />
 
         <div className="flex-grow px-[4vw] md:px-8 pb-8 pt-0 overflow-hidden flex flex-col items-stretch">
-          {data?.flat().map((section) =>
+          {data?.pages?.flat().map((section) =>
             section.homeSectionType === "BANNER" ? (
               <div
                 key={section.homeSectionId}
@@ -110,15 +111,15 @@ const Home: NextPage<HomeProps> = ({ initialData, topSearches }) => {
             )
           )}
 
-          {data?.slice(-1)?.[0]?.length !== 0 && (
+          {data?.pages?.slice(-1)?.[0]?.length !== 0 && (
             <InView
               onChange={(inView) => {
                 if (
                   inView &&
-                  data?.length === size &&
-                  data?.slice(-1)?.[0]?.length !== 0
+                  !isFetchingNextPage &&
+                  data?.pages?.slice(-1)?.[0]?.length !== 0
                 ) {
-                  setSize((prev) => prev + 1);
+                  fetchNextPage();
                 }
               }}
               rootMargin="0px 0px 1000px 0px"
@@ -145,14 +146,23 @@ type HomeProps = InferGetStaticPropsType<typeof getStaticProps>;
 
 export const getStaticProps = async () => {
   try {
-    const [initialData, topSearches] = await Promise.all([
-      getHome(),
+    const ssg = createSSGHelpers({
+      router: appRouter,
+      ctx: {
+        req: undefined,
+        res: undefined,
+      },
+      transformer: superjson,
+    });
+
+    const [topSearches] = await Promise.all([
       getTopSearches(),
+      ssg.fetchInfiniteQuery("home.infinite", {}),
     ]);
 
     return {
       props: {
-        initialData,
+        trpcState: ssg.dehydrate(),
         topSearches,
       },
       revalidate: 300,

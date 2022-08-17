@@ -3,27 +3,39 @@ import "react-tuby/css/main.css";
 import "swiper/css";
 import "swiper/css/navigation";
 
+import { withTRPC } from "@trpc/next";
 import type { AppProps } from "next/app";
 import NextNProgress from "nextjs-progressbar";
-import { SWRConfig } from "swr";
+import superjson from "superjson";
+
+import { AppRouter } from "@/server/createRouter";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <NextNProgress color="#0D90F3" options={{ showSpinner: false }} />
-      <SWRConfig
-        value={{
-          revalidateOnFocus: false,
-          revalidateOnMount: false,
-          revalidateOnReconnect: false,
-          revalidateIfStale: false,
-          refreshInterval: 0,
-        }}
-      >
-        <Component {...pageProps} />
-      </SWRConfig>
+      <Component {...pageProps} />
     </>
   );
 }
 
-export default MyApp;
+const getBaseUrl = () => {
+  if (typeof window !== "undefined") {
+    return "";
+  }
+  if (process.browser) return "";
+  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
+
+  return `http://localhost:${process.env.PORT ?? 3000}`; // dev SSR should use localhost
+};
+
+export default withTRPC<AppRouter>({
+  config() {
+    const url = `${getBaseUrl()}/api/trpc`;
+
+    return {
+      url,
+      transformer: superjson,
+    };
+  },
+})(MyApp);

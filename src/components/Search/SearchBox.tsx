@@ -2,10 +2,10 @@ import classNames from "classnames";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { FC, FormEvent, useEffect, useRef, useState } from "react";
+import { FaSearch } from "react-icons/fa";
 
 import { htmlToText } from "@/utils/text";
-
-import { getSearchKeywordsFromClient } from "../../services/search";
+import { trpc } from "@/utils/trpc";
 
 interface SearchBoxProps {
   autoFocus?: boolean;
@@ -19,6 +19,8 @@ const SearchBox: FC<SearchBoxProps> = ({ autoFocus }) => {
 
   const router = useRouter();
 
+  const { mutateAsync: fetchKeywords } = trpc.useMutation("search.keywords");
+
   useEffect(() => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
 
@@ -27,11 +29,11 @@ const SearchBox: FC<SearchBoxProps> = ({ autoFocus }) => {
     if (!inputValue.trim()) return;
 
     timeoutRef.current = setTimeout(async () => {
-      const data = await getSearchKeywordsFromClient(inputValue.trim());
+      const data = await fetchKeywords({ keyword: inputValue.trim() });
 
       setSuggestions(data.map((item) => htmlToText(item)));
     }, 500);
-  }, [inputValue]);
+  }, [inputValue, fetchKeywords]);
 
   const handleFormSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -61,7 +63,7 @@ const SearchBox: FC<SearchBoxProps> = ({ autoFocus }) => {
           autoFocus={autoFocus}
         />
         <button className="absolute right-2 top-1/2 -translate-y-1/2">
-          <i className="fas fa-search text-xl"></i>
+          <FaSearch className="w-6 h-6" />
         </button>
       </form>
 
