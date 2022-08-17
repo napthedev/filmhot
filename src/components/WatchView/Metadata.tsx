@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { FC, useEffect, useRef, useState } from "react";
 
 import { MovieDetail } from "@/types/movie";
@@ -10,18 +11,21 @@ interface MetaDataProps {
 }
 
 const MetaData: FC<MetaDataProps> = ({ data, episodeIndex }) => {
+  const router = useRouter();
+
   const lastEpisodeRef = useRef<HTMLAnchorElement | null>(null);
 
   const [showLoadMoreButton, setShowLoadMoreButton] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
+    setIsExpanded(false);
     if (lastEpisodeRef.current) {
       if (lastEpisodeRef.current.offsetTop > 0) {
         setShowLoadMoreButton(true);
       }
     }
-  }, []);
+  }, [router.asPath]);
 
   return (
     <div className="flex flex-col gap-[10px]">
