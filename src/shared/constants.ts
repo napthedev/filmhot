@@ -8,3 +8,12 @@ export const IMAGE_CARD_SIZE = {
     height: 246,
   },
 };
+
+export const resizeImage = (
+  url: string,
+  width: number | string = "",
+  height: number | string = ""
+) =>
+  `https://images.weserv.nl/?url=${encodeURIComponent(
+    url
+  )}&w=${width}&h=${height}&fit=outside`;

@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import { useAtom } from "jotai";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { FC } from "react";
@@ -10,6 +11,9 @@ import {
   FaSignOutAlt,
 } from "react-icons/fa";
 
+import { userAtom } from "@/store";
+import { supabase } from "@/utils/supabase";
+
 import ImageFade from "../Shared/ImageFade";
 
 interface SidebarProps {
@@ -18,7 +22,7 @@ interface SidebarProps {
 }
 
 const Sidebar: FC<SidebarProps> = ({ sidebarActive, setSidebarActive }) => {
-  const currentUser = null as any;
+  const [user] = useAtom(userAtom);
 
   const router = useRouter();
 
@@ -97,15 +101,8 @@ const Sidebar: FC<SidebarProps> = ({ sidebarActive, setSidebarActive }) => {
             Personal
           </p>
 
-          {!currentUser ? (
-            <Link
-              href={{
-                pathname: "/sign-in",
-                query: {
-                  redirect: router.asPath,
-                },
-              }}
-            >
+          {!user ? (
+            <Link href="/sign-in">
               <a className="flex items-center gap-2 transition text-gray-400 hover:text-gray-300">
                 <FaSignInAlt className="w-6 h-6 fill-current" />
                 <p className="block sm:hidden xl:block">Sign In</p>
@@ -115,7 +112,9 @@ const Sidebar: FC<SidebarProps> = ({ sidebarActive, setSidebarActive }) => {
             <div className="flex flex-col items-stretch gap-3">
               <div className="flex gap-2 items-center">
                 <ImageFade
-                  src={currentUser.photoURL}
+                  src={
+                    user.user_metadata.avatar_url || user.user_metadata.picture
+                  }
                   width={24}
                   height={24}
                   className="rounded-full"
@@ -123,11 +122,11 @@ const Sidebar: FC<SidebarProps> = ({ sidebarActive, setSidebarActive }) => {
                 />
 
                 <p className="text-gray-400 block sm:hidden xl:block">
-                  {currentUser.displayName}
+                  {user.user_metadata.full_name || user.user_metadata.name}
                 </p>
               </div>
               <button
-                onClick={() => {}}
+                onClick={() => supabase.auth.signOut()}
                 className="flex items-center cursor-pointer gap-2 transition text-gray-400 hover:text-gray-300"
               >
                 <FaSignOutAlt className="w-6 h-6 fill-current" />

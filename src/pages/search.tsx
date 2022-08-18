@@ -53,7 +53,6 @@ const Search: FC<SearchProps> = ({ result, topSearches, query }) => {
                       <div className="relative w-full h-0 pb-[140%] flex-shrink-0 group-hover:brightness-[80%] transition duration-300">
                         <ImageFade
                           width={250}
-                          height={Infinity}
                           className="absolute top-0 left-0 w-full h-full object-cover"
                           src={item.coverVerticalUrl}
                           alt=""

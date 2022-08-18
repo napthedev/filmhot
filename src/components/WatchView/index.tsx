@@ -1,10 +1,10 @@
 import dynamic from "next/dynamic";
 import { FC, useEffect } from "react";
 
-// import Comment from "./Comment";
 import { MovieDetail } from "@/types/movie";
 
 import NavBar from "../Layout/Navbar";
+import Comment from "./Comment";
 import MetaData from "./Metadata";
 import Similar from "./Similar";
 
@@ -99,7 +99,7 @@ const WatchView: FC<WatchViewProps> = ({
 
               <MetaData data={data} episodeIndex={episodeIndex} />
 
-              {/* {data && <Comment data={data} episodeIndex={episodeIndex} />} */}
+              <Comment data={data} episodeIndex={episodeIndex} />
             </div>
 
             <Similar data={data} />

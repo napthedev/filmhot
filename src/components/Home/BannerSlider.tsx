@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { FC } from "react";
-import { Navigation } from "swiper";
+import { Autoplay, Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import ImageFade from "../Shared/ImageFade";
@@ -17,17 +17,19 @@ const BannerSlider: FC<SliderProps> = ({ images }) => {
   return (
     <Swiper
       className="rounded-lg overflow-hidden"
-      modules={[Navigation]}
+      modules={[Navigation, Autoplay]}
       navigation
       loop
       slidesPerView={1}
+      autoplay={{
+        delay: 5000,
+      }}
     >
       {images.map((item) => (
         <SwiperSlide key={item.image}>
           <Link href={item.link}>
             <a className="block w-full h-0 pb-[42%] relative">
               <ImageFade
-                height={Infinity}
                 width={900}
                 className="absolute top-0 left-0 w-full h-full object-cover opacity-75"
                 src={item.image}
