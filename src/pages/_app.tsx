@@ -7,6 +7,7 @@ import "react-lazy-load-image-component/src/effects/opacity.css";
 import { withTRPC } from "@trpc/next";
 import { useSetAtom } from "jotai";
 import type { AppProps } from "next/app";
+import Script from "next/script";
 import NextNProgress from "nextjs-progressbar";
 import { useEffect } from "react";
 import superjson from "superjson";
@@ -27,6 +28,23 @@ function MyApp({ Component, pageProps }: AppProps) {
     <>
       <NextNProgress color="#0D90F3" options={{ showSpinner: false }} />
       <Component {...pageProps} />
+      {process.env.NEXT_PUBLIC_GA_ID && (
+        <>
+          <Script
+            strategy="lazyOnload"
+            async
+            src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
+          ></Script>
+          <Script id="google-analytics" strategy="lazyOnload">
+            {`
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}');
+            `}
+          </Script>
+        </>
+      )}
     </>
   );
 }
