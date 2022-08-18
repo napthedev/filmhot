@@ -4,6 +4,7 @@ import { FaTrash } from "react-icons/fa";
 
 import NavBar from "@/components/Layout/Navbar";
 import ImageFade from "@/components/Shared/ImageFade";
+import Meta from "@/components/Shared/Meta";
 
 const getHistory = () => {
   try {
@@ -28,6 +29,11 @@ const History: FC = () => {
 
   return (
     <>
+      <Meta
+        title="History - Filmhot"
+        description="FilmHot - AdFree Movie / Anime Watching Website"
+        image="/bg.png"
+      />
       <div className="flex flex-col items-stretch mx-[7vw] mb-8">
         <NavBar />
         <div className="flex justify-between mb-6">

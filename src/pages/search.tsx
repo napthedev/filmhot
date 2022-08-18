@@ -3,6 +3,7 @@ import Link from "next/link";
 import { FC } from "react";
 
 import ImageFade from "@/components/Shared/ImageFade";
+import Meta from "@/components/Shared/Meta";
 import { getTopSearches, searchWithKeyword } from "@/services/search";
 
 import NavBar from "../components/Layout/Navbar";
@@ -13,6 +14,11 @@ const Search: FC<SearchProps> = ({ result, topSearches, query }) => {
   if (topSearches)
     return (
       <>
+        <Meta
+          title="Search - Filmhot"
+          description="FilmHot - AdFree Movie / Anime Watching Website"
+          image="/bg.png"
+        />
         <div className="flex justify-center my-[100px] mx-6">
           <div className="w-full max-w-[400px] flex flex-col items-center gap-4">
             <div className="flex flex-col items-stretch gap-3">
@@ -31,6 +37,11 @@ const Search: FC<SearchProps> = ({ result, topSearches, query }) => {
 
   return (
     <>
+      <Meta
+        title={`Search for '${query}' - Filmhot`}
+        description="FilmHot - AdFree Movie / Anime Watching Website"
+        image="/bg.png"
+      />
       <div className="flex flex-col items-stretch mx-[7vw] mb-8">
         <NavBar />
         <div>

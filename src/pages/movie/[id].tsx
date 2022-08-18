@@ -5,16 +5,24 @@ import type {
   NextPage,
 } from "next";
 
+import Meta from "@/components/Shared/Meta";
 import WatchView from "@/components/WatchView";
 import { getMovieDetail } from "@/services/movie";
 
 const MoviePage: NextPage<MoviePageProps> = ({ info }) => {
   return (
-    <WatchView
-      data={info?.data!}
-      sources={info?.sources!}
-      subtitles={info?.subtitles!}
-    />
+    <>
+      <Meta
+        title={`Watch ${info?.data.name} - Filmhot`}
+        description="FilmHot - AdFree Movie / Anime Watching Website"
+        image={info?.data.coverHorizontalUrl || "/bg.png"}
+      />
+      <WatchView
+        data={info?.data!}
+        sources={info?.sources!}
+        subtitles={info?.subtitles!}
+      />
+    </>
   );
 };
 

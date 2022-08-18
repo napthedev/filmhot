@@ -2,6 +2,7 @@ import { useAtom } from "jotai";
 import { useRouter } from "next/router";
 import { FC, useState } from "react";
 
+import Meta from "@/components/Shared/Meta";
 import Navigate from "@/components/Shared/Navigate";
 import { userAtom } from "@/store";
 import { supabase } from "@/utils/supabase";
@@ -31,6 +32,11 @@ const SignIn: FC = () => {
 
   return (
     <>
+      <Meta
+        title="Sign in - Filmhot"
+        description="FilmHot - AdFree Movie / Anime Watching Website"
+        image="/bg.png"
+      />
       <div className="min-h-screen w-screen bg-[url('/bg.png')] bg-no-repeat bg-cover bg-center">
         <div className="w-full min-h-screen flex justify-center items-center bg-[#00000056]">
           <div className="w-[90vw] max-w-[350px] bg-black p-10 flex flex-col items-center gap-6 rounded-xl">

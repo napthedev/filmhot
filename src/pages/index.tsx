@@ -12,6 +12,7 @@ import SectionSlider from "@/components/Home/SectionSlider";
 import Sidebar from "@/components/Layout/Sidebar";
 import SearchBox from "@/components/Search/SearchBox";
 import TopSearches from "@/components/Search/TopSearches";
+import Meta from "@/components/Shared/Meta";
 import { appRouter } from "@/server/createRouter";
 import { getTopSearches } from "@/services/search";
 import { trpc } from "@/utils/trpc";
@@ -31,6 +32,11 @@ const Home: NextPage<HomeProps> = ({ topSearches }) => {
 
   return (
     <>
+      <Meta
+        title="FilmHot - AdFree Movie / Anime Watching Website"
+        description="Your favorite movies and TV shows in one place"
+        image="/bg.png"
+      />
       <div className="flex sm:hidden justify-between px-[4vw] mt-6">
         <Link href="/">
           <a className="flex items-center gap-2">

@@ -6,6 +6,7 @@ import type {
 } from "next";
 import { useRouter } from "next/router";
 
+import Meta from "@/components/Shared/Meta";
 import WatchView from "@/components/WatchView";
 import { getMovieDetail } from "@/services/movie";
 
@@ -13,12 +14,21 @@ const TVPage: NextPage<TVPageProps> = ({ info }) => {
   const router = useRouter();
 
   return (
-    <WatchView
-      data={info?.data!}
-      sources={info?.sources!}
-      subtitles={info?.subtitles!}
-      episodeIndex={Number(router.query.episodeIndex)}
-    />
+    <>
+      <Meta
+        title={`Watch ${info?.data.name} - Episode ${
+          Number(router.query.episodeIndex) + 1
+        } - Filmhot`}
+        description="FilmHot - AdFree Movie / Anime Watching Website"
+        image={info?.data.coverHorizontalUrl || "/bg.png"}
+      />
+      <WatchView
+        data={info?.data!}
+        sources={info?.sources!}
+        subtitles={info?.subtitles!}
+        episodeIndex={Number(router.query.episodeIndex)}
+      />
+    </>
   );
 };
 
