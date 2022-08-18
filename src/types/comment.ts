@@ -4,7 +4,7 @@ export interface CommentItem {
   user: User;
   content: string;
   movie_slug: string;
-  reactions: any[];
+  reactions: Reaction[];
 }
 interface User {
   id: string;
@@ -12,4 +12,11 @@ interface User {
   photo_url: string;
   display_name: string;
   email: string;
+}
+
+interface Reaction {
+  user: string;
+  comment: string;
+  created_at: string;
+  value: 0 | 1 | 2;
 }

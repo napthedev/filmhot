@@ -37,7 +37,8 @@ const Comment: FC<CommentProps> = ({ data, episodeIndex }) => {
     const { data: comments, error } = await supabase
       .from("comments")
       .select("*,user(*),reactions(*)")
-      .eq("movie_slug", movieSlug);
+      .eq("movie_slug", movieSlug)
+      .order("created_at", { ascending: false });
 
     if (error) {
       console.log(error);
