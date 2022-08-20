@@ -29,7 +29,7 @@ export const getMovieDetail = async (
               params: {
                 category,
                 contentId: id,
-                episodeId: data.episodeVo[0].id,
+                episodeId: data.episodeVo[episodeIndex].id,
                 definition: quality.code,
               },
             })

@@ -31,6 +31,7 @@ const BannerSlider: FC<SliderProps> = ({ images }) => {
             <a className="block w-full h-0 pb-[42%] relative">
               <ImageFade
                 width={900}
+                height={400}
                 className="absolute top-0 left-0 w-full h-full object-cover opacity-75"
                 src={item.image}
                 alt=""

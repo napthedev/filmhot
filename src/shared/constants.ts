@@ -16,4 +16,4 @@ export const resizeImage = (
 ) =>
   `https://images.weserv.nl/?url=${encodeURIComponent(
     url
-  )}&w=${width}&h=${height}&fit=outside`;
+  )}&w=${width}&h=${height}&fit=cover&output=webp`;
