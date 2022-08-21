@@ -61,6 +61,7 @@ const WatchView: FC<WatchViewProps> = ({
               <div className="w-full h-0 pb-[56.25%] relative">
                 <div className="absolute inset-0 w-full h-full bg-black">
                   <Player
+                    key={playerKey}
                     playerKey={playerKey}
                     primaryColor="#0D90F3"
                     src={sources}
