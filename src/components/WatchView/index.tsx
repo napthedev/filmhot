@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic";
 import { FC, useEffect } from "react";
 
-import { MovieDetail } from "@/types/movie";
+import { MovieInfo } from "@/types/movie";
 
 import NavBar from "../Layout/Navbar";
 import Comment from "./Comment";
@@ -10,21 +10,9 @@ import Similar from "./Similar";
 
 const Player = dynamic(() => import("./Player"), { ssr: false });
 
-interface WatchViewProps {
-  data: MovieDetail;
-  sources:
-    | {
-        quality: number;
-        url: string;
-      }[];
-  subtitles:
-    | {
-        language: string;
-        url: string;
-        lang: string;
-      }[];
+type WatchViewProps = MovieInfo & {
   episodeIndex?: number;
-}
+};
 
 const WatchView: FC<WatchViewProps> = ({
   data,
@@ -64,15 +52,6 @@ const WatchView: FC<WatchViewProps> = ({
 
   return (
     <>
-      {/* {data && (
-        <Title
-          value={`Watch ${data.name}${
-            typeof episodeIndex !== "undefined"
-              ? ` - Episode ${episodeIndex + 1}`
-              : ""
-          } - FilmHot`}
-        />
-      )} */}
       <div className="flex justify-center">
         <div className="mx-[4vw] lg:mx-[6vw] flex-1">
           <NavBar />
@@ -86,7 +65,7 @@ const WatchView: FC<WatchViewProps> = ({
                     primaryColor="#0D90F3"
                     src={sources}
                     subtitles={
-                      subtitles?.map((subtitle) => ({
+                      subtitles?.map((subtitle: any) => ({
                         ...subtitle,
                         url: `/api/subtitle?url=${encodeURIComponent(
                           subtitle.url

@@ -5,7 +5,7 @@ import ImageFade from "@/components/Shared/ImageFade";
 import { MovieDetail } from "@/types/movie";
 
 interface SimilarProps {
-  data: MovieDetail | undefined;
+  data: MovieDetail;
 }
 
 const Similar: FC<SimilarProps> = ({ data }) => {

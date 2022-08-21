@@ -1,4 +1,4 @@
-import { MovieDetail } from "@/types/movie";
+import { MovieInfo } from "@/types/movie";
 
 import axios from "./client";
 
@@ -6,11 +6,7 @@ export const getMovieDetail = async (
   id: string,
   category: 0 | 1,
   episodeIndex = 0
-): Promise<{
-  data: MovieDetail;
-  sources: { quality: number; url: string }[];
-  subtitles: { language: string; url: string; lang: string }[];
-}> => {
+): Promise<MovieInfo> => {
   const data = (
     await axios.get("movieDrama/get", {
       params: {

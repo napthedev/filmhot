@@ -64,3 +64,9 @@ export interface MovieDetail {
   updateInfo?: any;
   year: number;
 }
+
+export interface MovieInfo {
+  data: MovieDetail;
+  sources: { quality: number; url: string }[];
+  subtitles: { language: string; url: string; lang: string }[];
+}
