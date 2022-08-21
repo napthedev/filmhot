@@ -20,7 +20,7 @@ const TVPage: NextPage<TVPageProps> = ({ info }) => {
           Number(router.query.episodeIndex) + 1
         } - Filmhot`}
         description="FilmHot - AdFree Movie / Anime Watching Website"
-        image={info?.data.coverHorizontalUrl || "/bg.png"}
+        image={info?.data.coverHorizontalUrl || "/preview.png"}
       />
       <WatchView
         data={info?.data!}

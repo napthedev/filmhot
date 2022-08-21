@@ -12,7 +12,7 @@ const Error: FC = () => {
       <Meta
         title="Not Found - Filmhot"
         description="FilmHot - AdFree Movie / Anime Watching Website"
-        image="/bg.png"
+        image="/preview.png"
       />
       <div className="flex flex-col min-h-screen justify-center items-center gap-4">
         <img className="w-full max-w-[200px] h-auto" src="/error.png" alt="" />

@@ -35,7 +35,7 @@ const Home: NextPage<HomeProps> = ({ topSearches }) => {
       <Meta
         title="FilmHot - AdFree Movie / Anime Watching Website"
         description="Your favorite movies and TV shows in one place"
-        image="/bg.png"
+        image="/preview.png"
       />
       <div className="flex sm:hidden justify-between px-[4vw] mt-6">
         <Link href="/">

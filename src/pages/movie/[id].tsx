@@ -15,7 +15,7 @@ const MoviePage: NextPage<MoviePageProps> = ({ info }) => {
       <Meta
         title={`Watch ${info?.data.name} - Filmhot`}
         description="FilmHot - AdFree Movie / Anime Watching Website"
-        image={info?.data.coverHorizontalUrl || "/bg.png"}
+        image={info?.data.coverHorizontalUrl || "/preview.png"}
       />
       <WatchView
         data={info?.data!}

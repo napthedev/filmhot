@@ -32,7 +32,7 @@ const History: FC = () => {
       <Meta
         title="History - Filmhot"
         description="FilmHot - AdFree Movie / Anime Watching Website"
-        image="/bg.png"
+        image="/preview.png"
       />
       <div className="flex flex-col items-stretch mx-[7vw] mb-8">
         <NavBar />
