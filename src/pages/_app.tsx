@@ -28,23 +28,16 @@ function MyApp({ Component, pageProps }: AppProps) {
     <>
       <NextNProgress color="#0D90F3" options={{ showSpinner: false }} />
       <Component {...pageProps} />
-      {process.env.NEXT_PUBLIC_GA_ID && (
-        <>
+      {process.env.NEXT_PUBLIC_UMAMI_SCRIPT_URL &&
+        process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID && (
           <Script
             strategy="lazyOnload"
             async
-            src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
+            defer
+            data-website-id={process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID}
+            src={process.env.NEXT_PUBLIC_UMAMI_SCRIPT_URL}
           ></Script>
-          <Script id="google-analytics" strategy="lazyOnload">
-            {`
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}');
-            `}
-          </Script>
-        </>
-      )}
+        )}
     </>
   );
 }

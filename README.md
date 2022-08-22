@@ -39,7 +39,7 @@ I have created a documentation on how to leak their api: [https://documenter.get
 
 - Clone the Project
 - Setup supabase: see [readme](/supabase/README.md)
-- Setup google analytics (optional)
+- Setup [umami analytics](https://umami.is/) (optional)
 
 ## Deployment
 
