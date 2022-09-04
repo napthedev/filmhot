@@ -1,7 +1,8 @@
 import dynamic from "next/dynamic";
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 
 import { MovieInfo } from "@/types/movie";
+import { trpc } from "@/utils/trpc";
 
 import NavBar from "../Layout/Navbar";
 import Comment from "./Comment";
@@ -24,6 +25,49 @@ const WatchView: FC<WatchViewProps> = ({
   const playerKey = `${mediaType}-${data?.id}${
     episodeIndex ? `-${episodeIndex}` : ""
   }`;
+
+  const [willFetchLatestSource, setWillFetchLatestSource] = useState(false);
+
+  const { data: newData } = trpc.useQuery(
+    [
+      "video.info",
+      {
+        id: data.id,
+        category: typeof episodeIndex === "undefined" ? 0 : 1,
+        episodeIndex,
+      },
+    ],
+    { enabled: willFetchLatestSource }
+  );
+
+  useEffect(() => {
+    // @ts-ignore
+    if (window.xhrModified) return;
+    const oldMethod = XMLHttpRequest.prototype.open;
+    // @ts-ignore
+    XMLHttpRequest.prototype.open = function (
+      method,
+      url,
+      async,
+      username,
+      password
+    ) {
+      if (typeof url === "string" && url.includes("m3u8")) {
+        this.addEventListener("error", () => {
+          setWillFetchLatestSource(true);
+        });
+        this.addEventListener("loadend", () => {
+          if (this.status >= 300) {
+            setWillFetchLatestSource(true);
+          }
+        });
+      }
+      return oldMethod.call(this, method, url, async, username, password);
+    };
+
+    // @ts-ignore
+    window.xhrModified = true;
+  }, []);
 
   useEffect(() => {
     if (!data) return;
@@ -64,7 +108,7 @@ const WatchView: FC<WatchViewProps> = ({
                     key={playerKey}
                     playerKey={playerKey}
                     primaryColor="#0D90F3"
-                    src={sources}
+                    src={newData?.sources || sources}
                     subtitles={
                       subtitles?.map((subtitle: any) => ({
                         ...subtitle,
