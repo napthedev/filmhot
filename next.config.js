@@ -8,6 +8,7 @@ const { withSuperjson } = require("next-superjson");
 const nextConfig = {
   reactStrictMode: false,
   swcMinify: true,
+  output: "standalone",
 };
 
 module.exports = withSuperjson()(withAnalyzer(nextConfig));
