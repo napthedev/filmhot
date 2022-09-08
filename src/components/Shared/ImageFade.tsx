@@ -1,24 +1,25 @@
-import { FC } from "react";
-import {
-  LazyLoadImage,
-  LazyLoadImageProps,
-} from "react-lazy-load-image-component";
+import classNames from "classnames";
+import Image, { ImageProps } from "next/future/image";
+import { FC, useState } from "react";
 
-import { resizeImage } from "@/shared/constants";
+const ImageFade: FC<ImageProps> = ({ alt, className, ...props }) => {
+  const [isLoaded, setIsLoaded] = useState(false);
 
-const ImageFade: FC<LazyLoadImageProps> = ({
-  src,
-  width,
-  height,
-  ...props
-}) => {
   return (
-    <LazyLoadImage
+    <Image
       {...props}
-      src={resizeImage(src!, width, height)}
-      width={width}
-      height={height}
-      effect="opacity"
+      className={classNames(
+        className,
+        {
+          "opacity-100": isLoaded,
+          "opacity-0": !isLoaded,
+        },
+        "transition duration-200"
+      )}
+      alt={alt}
+      onLoad={() => setIsLoaded(true)}
+      onLoadCapture={() => setIsLoaded(true)}
+      onLoadingComplete={() => setIsLoaded(true)}
     />
   );
 };

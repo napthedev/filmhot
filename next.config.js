@@ -9,6 +9,19 @@ const nextConfig = {
   reactStrictMode: false,
   swcMinify: true,
   output: "standalone",
+  experimental: {
+    images: {
+      allowFutureImage: true,
+    },
+  },
+  images: {
+    domains: [
+      "img.netpop.app",
+      "lh3.googleusercontent.com",
+      "platform-lookaside.fbsbx.com",
+    ],
+    minimumCacheTTL: 3600,
+  },
 };
 
 module.exports = withSuperjson()(withAnalyzer(nextConfig));
