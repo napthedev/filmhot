@@ -5,6 +5,8 @@ on:
       - master
 env:
   FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+  NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+  NEXT_PUBLIC_SUPABASE_SECRET: ${{ secrets.NEXT_PUBLIC_SUPABASE_SECRET }}
 jobs:
   deploy:
     name: Deploy app
@@ -12,4 +14,4 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: superfly/flyctl-actions/setup-flyctl@master
-      - run: flyctl deploy --remote-only
+      - run: flyctl deploy --remote-only --env NEXT_PUBLIC_SUPABASE_URL=${{ secrets.NEXT_PUBLIC_SUPABASE_URL }} --env NEXT_PUBLIC_SUPABASE_SECRET=${{ secrets.NEXT_PUBLIC_SUPABASE_SECRET }}
