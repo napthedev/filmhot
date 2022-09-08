@@ -5,13 +5,19 @@ on:
       - master
 env:
   FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
-  NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-  NEXT_PUBLIC_SUPABASE_SECRET: ${{ secrets.NEXT_PUBLIC_SUPABASE_SECRET }}
 jobs:
   deploy:
     name: Deploy app
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Write .env file
+        uses: "DamianReeves/write-file-action@master"
+        with:
+          path: .env.local
+          write-mode: overwrite
+          contents: |
+            NEXT_PUBLIC_SUPABASE_URL=${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+            NEXT_PUBLIC_SUPABASE_SECRET=${{ secrets.NEXT_PUBLIC_SUPABASE_SECRET }}
       - uses: superfly/flyctl-actions/setup-flyctl@master
-      - run: flyctl deploy --remote-only --env NEXT_PUBLIC_SUPABASE_URL=${{ secrets.NEXT_PUBLIC_SUPABASE_URL }} --env NEXT_PUBLIC_SUPABASE_SECRET=${{ secrets.NEXT_PUBLIC_SUPABASE_SECRET }}
+      - run: flyctl deploy --remote-only
