@@ -33,7 +33,7 @@ const Home: NextPage<HomeProps> = ({ topSearches }) => {
   return (
     <>
       <Meta
-        title="FilmHot - AdFree Movie / Anime Watching Website"
+        title="FilmHot - Rapid Movie / Anime Watching Website"
         description="Your favorite movies and TV shows in one place"
         image="/preview.png"
       />

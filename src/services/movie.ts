@@ -58,12 +58,6 @@ export const getMovieDetail = async (
         return [element, ...acc];
       }
       return [...acc, element];
-    }, [])
-    .reduce((acc: any, element: any) => {
-      if (element.lang === "vi") {
-        return [element, ...acc];
-      }
-      return [...acc, element];
     }, []);
 
   return {

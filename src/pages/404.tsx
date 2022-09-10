@@ -11,7 +11,7 @@ const Error: FC = () => {
     <>
       <Meta
         title="Not Found - Filmhot"
-        description="FilmHot - AdFree Movie / Anime Watching Website"
+        description="FilmHot - Rapid Movie / Anime Watching Website"
         image="/preview.png"
       />
       <div className="flex flex-col min-h-screen justify-center items-center gap-4">

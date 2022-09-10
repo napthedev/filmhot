@@ -1,6 +1,6 @@
 <h1 align="center" style="font-size: 60px">Filmhot</h1>
 
-<p align="center"><strong>AdFree Movie / Anime Watching Website</strong></p>
+<p align="center"><strong>Rapid Movie / Anime Watching Website</strong></p>
 
 <p align="center">
   <img alt="Stars" src="https://badgen.net/github/stars/napthedev/filmhot">
