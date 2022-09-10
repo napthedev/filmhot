@@ -10,7 +10,7 @@ export const getHome = async (page = 0): Promise<HomeSection[]> => {
         },
       })
     ).data.data.recommendItems.filter(
-      (section: any) => section.homeSectionType !== "BLOCK_GROUP"
+      (section: any) => section.homeSectionType === "SINGLE_ALBUM"
     );
 
     if (!data) {

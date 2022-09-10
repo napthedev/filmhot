@@ -6,7 +6,6 @@ import { FaBars } from "react-icons/fa";
 import { InView } from "react-intersection-observer";
 import superjson from "superjson";
 
-import BannerSlider from "@/components/Home/BannerSlider";
 import InfiniteLoader from "@/components/Home/InfiniteLoader";
 import SectionSlider from "@/components/Home/SectionSlider";
 import Sidebar from "@/components/Layout/Sidebar";
@@ -57,65 +56,33 @@ const Home: NextPage<HomeProps> = ({ topSearches }) => {
         />
 
         <div className="flex-grow px-[4vw] md:px-8 pb-8 pt-0 overflow-hidden flex flex-col items-stretch">
-          {data?.pages?.flat().map((section) =>
-            section.homeSectionType === "BANNER" ? (
-              <div
-                key={section.homeSectionId}
-                className="overflow-hidden w-full mt-8"
-              >
-                <BannerSlider
-                  images={
-                    (section.recommendContentVOList
-                      .map((item) => {
-                        const searchParams = new URLSearchParams(
-                          new URL(item.jumpAddress).search
-                        );
+          {data?.pages?.flat().map((section) => (
+            <div key={section.homeSectionId}>
+              <h1 className="text-2xl mb-3 mt-8">
+                {section.homeSectionName
+                  .replace("Loklok", "")
+                  .replace("on Loklok", "")}
+              </h1>
 
-                        if (!searchParams.get("id")) return null;
+              <SectionSlider
+                images={section.recommendContentVOList.map((item) => {
+                  const searchParams = new URLSearchParams(
+                    new URL(item.jumpAddress).search
+                  );
 
-                        return {
-                          title: item.title,
-                          image: item.imageUrl,
-                          link:
-                            searchParams.get("type") === "0"
-                              ? `/movie/${searchParams.get("id")}`
-                              : `/tv/${searchParams.get("id")}/0`,
-                        };
-                      })
-                      .filter(Boolean) as {
-                      title: string;
-                      image: string;
-                      link: string;
-                    }[]) || []
-                  }
-                />
-              </div>
-            ) : (
-              <div key={section.homeSectionId}>
-                <h1 className="text-2xl mb-3 mt-8">
-                  {section.homeSectionName.replace("on Loklok", "")}
-                </h1>
-
-                <SectionSlider
-                  images={section.recommendContentVOList.map((item) => {
-                    const searchParams = new URLSearchParams(
-                      new URL(item.jumpAddress).search
-                    );
-
-                    return {
-                      title: item.title,
-                      image: item.imageUrl,
-                      link:
-                        searchParams.get("type") === "0"
-                          ? `/movie/${searchParams.get("id")}`
-                          : `/tv/${searchParams.get("id")}/0`,
-                    };
-                  })}
-                  coverType={section.coverType}
-                />
-              </div>
-            )
-          )}
+                  return {
+                    title: item.title,
+                    image: item.imageUrl,
+                    link:
+                      searchParams.get("type") === "0"
+                        ? `/movie/${searchParams.get("id")}`
+                        : `/tv/${searchParams.get("id")}/0`,
+                  };
+                })}
+                coverType={section.coverType}
+              />
+            </div>
+          ))}
 
           {data?.pages?.slice(-1)?.[0]?.length !== 0 && (
             <InView
