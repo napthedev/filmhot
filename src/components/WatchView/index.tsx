@@ -124,7 +124,9 @@ const WatchView: FC<WatchViewProps> = ({
 
               <MetaData data={data} episodeIndex={episodeIndex} />
 
-              <Ads />
+              <div className="mt-6">
+                <Ads />
+              </div>
 
               <Comment data={data} episodeIndex={episodeIndex} />
             </div>

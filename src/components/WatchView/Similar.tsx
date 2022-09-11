@@ -3,6 +3,7 @@ import { FC } from "react";
 
 import ImageFade from "@/components/Shared/ImageFade";
 import { MovieDetail } from "@/types/movie";
+
 import Ads from "../Shared/Ads";
 
 interface SimilarProps {
