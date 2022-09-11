@@ -1,7 +1,7 @@
 import { createSSGHelpers } from "@trpc/react/ssg";
 import type { InferGetStaticPropsType, NextPage } from "next";
 import Link from "next/link";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { FaBars } from "react-icons/fa";
 import { InView } from "react-intersection-observer";
 import superjson from "superjson";
@@ -11,6 +11,7 @@ import SectionSlider from "@/components/Home/SectionSlider";
 import Sidebar from "@/components/Layout/Sidebar";
 import SearchBox from "@/components/Search/SearchBox";
 import TopSearches from "@/components/Search/TopSearches";
+import Ads from "@/components/Shared/Ads";
 import Meta from "@/components/Shared/Meta";
 import { appRouter } from "@/server/createRouter";
 import { getTopSearches } from "@/services/search";
@@ -56,45 +57,38 @@ const Home: NextPage<HomeProps> = ({ topSearches }) => {
         />
 
         <div className="flex-grow px-[4vw] md:px-8 pb-8 pt-0 overflow-hidden flex flex-col items-stretch">
-          {process.env.NEXT_PUBLIC_CA_PUB && (
-            <>
-              <ins
-                className="adsbygoogle"
-                style={{ display: "block" }}
-                data-ad-client={`ca-pub-${process.env.NEXT_PUBLIC_CA_PUB}`}
-                data-ad-slot="3294380897"
-                data-ad-format="auto"
-                data-full-width-responsive="true"
-              ></ins>
-              <script>{`(adsbygoogle = window.adsbygoogle || []).push({});`}</script>
-            </>
-          )}
-          {data?.pages?.flat().map((section) => (
-            <div key={section.homeSectionId}>
-              <h1 className="text-2xl mb-3 mt-8">
-                {section.homeSectionName
-                  .replace("Loklok", "")
-                  .replace("on Loklok", "")}
-              </h1>
+          {data?.pages.map((group, index) => (
+            <Fragment key={index}>
+              {group.map((section) => (
+                <div key={section.homeSectionId}>
+                  <h1 className="text-2xl mb-3 mt-8">
+                    {section.homeSectionName
+                      .replace("Loklok", "")
+                      .replace("on Loklok", "")}
+                  </h1>
 
-              <SectionSlider
-                images={section.recommendContentVOList.map((item) => {
-                  const searchParams = new URLSearchParams(
-                    new URL(item.jumpAddress).search
-                  );
+                  <SectionSlider
+                    images={section.recommendContentVOList.map((item) => {
+                      const searchParams = new URLSearchParams(
+                        new URL(item.jumpAddress).search
+                      );
 
-                  return {
-                    title: item.title,
-                    image: item.imageUrl,
-                    link:
-                      searchParams.get("type") === "0"
-                        ? `/movie/${searchParams.get("id")}`
-                        : `/tv/${searchParams.get("id")}/0`,
-                  };
-                })}
-                coverType={section.coverType}
-              />
-            </div>
+                      return {
+                        title: item.title,
+                        image: item.imageUrl,
+                        link:
+                          searchParams.get("type") === "0"
+                            ? `/movie/${searchParams.get("id")}`
+                            : `/tv/${searchParams.get("id")}/0`,
+                      };
+                    })}
+                    coverType={section.coverType}
+                  />
+                </div>
+              ))}
+
+              <Ads />
+            </Fragment>
           ))}
 
           {data?.pages?.slice(-1)?.[0]?.length !== 0 && (
@@ -118,21 +112,9 @@ const Home: NextPage<HomeProps> = ({ topSearches }) => {
 
         <div className="flex-shrink-0 w-[350px] p-8 sticky top-0 h-screen scrollbar overflow-hidden overflow-y-auto hidden md:block">
           <SearchBox />
-          {process.env.NEXT_PUBLIC_CA_PUB && (
-            <>
-              <ins
-                className="adsbygoogle"
-                style={{ display: "block" }}
-                data-ad-client={`ca-pub-${process.env.NEXT_PUBLIC_CA_PUB}`}
-                data-ad-slot="3294380897"
-                data-ad-format="auto"
-                data-full-width-responsive="true"
-              ></ins>
-              <script>{`(adsbygoogle = window.adsbygoogle || []).push({});`}</script>
-            </>
-          )}
           <h1 className="text-xl my-6">Top Searches</h1>
           <TopSearches topSearches={topSearches!} />
+          <Ads />
         </div>
       </div>
     </>

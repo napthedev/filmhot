@@ -14,6 +14,7 @@ import {
 import { userAtom } from "@/store";
 import { supabase } from "@/utils/supabase";
 
+import Ads from "../Shared/Ads";
 import ImageFade from "../Shared/ImageFade";
 
 interface SidebarProps {
@@ -135,19 +136,7 @@ const Sidebar: FC<SidebarProps> = ({ sidebarActive, setSidebarActive }) => {
             </div>
           )}
         </div>
-        {process.env.NEXT_PUBLIC_CA_PUB && (
-          <>
-            <ins
-              className="adsbygoogle"
-              style={{ display: "block" }}
-              data-ad-client={`ca-pub-${process.env.NEXT_PUBLIC_CA_PUB}`}
-              data-ad-slot="3294380897"
-              data-ad-format="auto"
-              data-full-width-responsive="true"
-            ></ins>
-            <script>{`(adsbygoogle = window.adsbygoogle || []).push({});`}</script>
-          </>
-        )}
+        <Ads />
       </div>
       <div
         onClick={() => setSidebarActive(false)}

@@ -3,6 +3,7 @@ import { FC } from "react";
 
 import ImageFade from "@/components/Shared/ImageFade";
 import { MovieDetail } from "@/types/movie";
+import Ads from "../Shared/Ads";
 
 interface SimilarProps {
   data: MovieDetail;
@@ -11,19 +12,7 @@ interface SimilarProps {
 const Similar: FC<SimilarProps> = ({ data }) => {
   return (
     <div className="flex-shrink-0 md:w-[300px]">
-      {process.env.NEXT_PUBLIC_CA_PUB && (
-        <>
-          <ins
-            className="adsbygoogle"
-            style={{ display: "block" }}
-            data-ad-client={`ca-pub-${process.env.NEXT_PUBLIC_CA_PUB}`}
-            data-ad-slot="3294380897"
-            data-ad-format="auto"
-            data-full-width-responsive="true"
-          ></ins>
-          <script>{`(adsbygoogle = window.adsbygoogle || []).push({});`}</script>
-        </>
-      )}
+      <Ads />
 
       {data?.refList &&
         data.refList.filter((item) => item.id !== data.id).length > 0 && (
