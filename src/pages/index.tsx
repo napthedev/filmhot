@@ -62,7 +62,7 @@ const Home: NextPage<HomeProps> = ({ topSearches }) => {
                 className="adsbygoogle"
                 style={{ display: "block" }}
                 data-ad-client={`ca-pub-${process.env.NEXT_PUBLIC_CA_PUB}`}
-                data-ad-slot="2089110430"
+                data-ad-slot="3294380897"
                 data-ad-format="auto"
                 data-full-width-responsive="true"
               ></ins>
