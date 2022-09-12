@@ -20,6 +20,5 @@ jobs:
             NEXT_PUBLIC_SUPABASE_URL=${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
             NEXT_PUBLIC_SUPABASE_SECRET=${{ secrets.NEXT_PUBLIC_SUPABASE_SECRET }}
             NEXT_PUBLIC_GA_ID=${{ secrets.NEXT_PUBLIC_GA_ID }}
-            NEXT_PUBLIC_CA_PUB=${{ secrets.NEXT_PUBLIC_CA_PUB }}
       - uses: superfly/flyctl-actions/setup-flyctl@master
       - run: flyctl deploy --remote-only --detach

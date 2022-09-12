@@ -45,14 +45,6 @@ function MyApp({ Component, pageProps }: AppProps) {
           </Script>
         </>
       )}
-      {process.env.NEXT_PUBLIC_CA_PUB && (
-        <Script
-          strategy="afterInteractive"
-          async
-          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-${process.env.NEXT_PUBLIC_CA_PUB}`}
-          crossOrigin="anonymous"
-        ></Script>
-      )}
     </>
   );
 }
