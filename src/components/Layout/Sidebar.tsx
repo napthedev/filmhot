@@ -14,7 +14,6 @@ import {
 import { userAtom } from "@/store";
 import { supabase } from "@/utils/supabase";
 
-import Ads from "../Shared/Ads";
 import ImageFade from "../Shared/ImageFade";
 
 interface SidebarProps {
@@ -136,7 +135,6 @@ const Sidebar: FC<SidebarProps> = ({ sidebarActive, setSidebarActive }) => {
             </div>
           )}
         </div>
-        <Ads />
       </div>
       <div
         onClick={() => setSidebarActive(false)}

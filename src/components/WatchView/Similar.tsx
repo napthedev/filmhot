@@ -4,8 +4,6 @@ import { FC } from "react";
 import ImageFade from "@/components/Shared/ImageFade";
 import { MovieDetail } from "@/types/movie";
 
-import Ads from "../Shared/Ads";
-
 interface SimilarProps {
   data: MovieDetail;
 }
@@ -13,8 +11,6 @@ interface SimilarProps {
 const Similar: FC<SimilarProps> = ({ data }) => {
   return (
     <div className="flex-shrink-0 md:w-[300px]">
-      <Ads />
-
       {data?.refList &&
         data.refList.filter((item) => item.id !== data.id).length > 0 && (
           <>

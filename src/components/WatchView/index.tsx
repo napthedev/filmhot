@@ -5,7 +5,6 @@ import { MovieInfo } from "@/types/movie";
 import { trpc } from "@/utils/trpc";
 
 import NavBar from "../Layout/Navbar";
-import Ads from "../Shared/Ads";
 import Comment from "./Comment";
 import MetaData from "./Metadata";
 import Similar from "./Similar";
@@ -123,10 +122,6 @@ const WatchView: FC<WatchViewProps> = ({
               </div>
 
               <MetaData data={data} episodeIndex={episodeIndex} />
-
-              <div className="mt-6">
-                <Ads />
-              </div>
 
               <Comment data={data} episodeIndex={episodeIndex} />
             </div>

@@ -11,7 +11,6 @@ import SectionSlider from "@/components/Home/SectionSlider";
 import Sidebar from "@/components/Layout/Sidebar";
 import SearchBox from "@/components/Search/SearchBox";
 import TopSearches from "@/components/Search/TopSearches";
-import Ads from "@/components/Shared/Ads";
 import Meta from "@/components/Shared/Meta";
 import { appRouter } from "@/server/createRouter";
 import { getTopSearches } from "@/services/search";
@@ -86,10 +85,6 @@ const Home: NextPage<HomeProps> = ({ topSearches }) => {
                   />
                 </div>
               ))}
-
-              <div className="mt-8">
-                <Ads />
-              </div>
             </Fragment>
           ))}
 
@@ -116,9 +111,6 @@ const Home: NextPage<HomeProps> = ({ topSearches }) => {
           <SearchBox />
           <h1 className="text-xl my-6">Top Searches</h1>
           <TopSearches topSearches={topSearches!} />
-          <div className="my-6">
-            <Ads />
-          </div>
         </div>
       </div>
     </>
