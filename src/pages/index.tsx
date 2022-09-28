@@ -142,7 +142,7 @@ export const getStaticProps = async () => {
         topSearches,
         trpcState: ssg.dehydrate(),
       },
-      revalidate: 60,
+      revalidate: 300,
     };
   } catch (error) {
     return {
