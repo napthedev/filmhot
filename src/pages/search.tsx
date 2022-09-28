@@ -16,7 +16,7 @@ const Search: FC<SearchProps> = ({ result, topSearches, query }) => {
       <>
         <Meta
           title="Search - Filmhot"
-          description="FilmHot - Rapid Movie / Anime Watching Website"
+          description="FilmHot - AdFree Movie / Anime Watching Website"
           image="/preview.png"
         />
         <div className="flex justify-center my-[100px] mx-6">
@@ -39,7 +39,7 @@ const Search: FC<SearchProps> = ({ result, topSearches, query }) => {
     <>
       <Meta
         title={`Search for '${query}' - Filmhot`}
-        description="FilmHot - Rapid Movie / Anime Watching Website"
+        description="FilmHot - AdFree Movie / Anime Watching Website"
         image="/preview.png"
       />
       <div className="flex flex-col items-stretch mx-[7vw] mb-8">

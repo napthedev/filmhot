@@ -1,6 +1,6 @@
 <h1 align="center" style="font-size: 60px">Filmhot</h1>
 
-<p align="center"><strong>Rapid Movie / Anime Watching Website</strong></p>
+<p align="center"><strong>AdFree Movie / Anime Watching Website</strong></p>
 
 <p align="center">
   <img alt="Stars" src="https://badgen.net/github/stars/napthedev/filmhot">
@@ -13,5 +13,45 @@
 
 Official website: [https://filmhot.live](https://filmhot.live)
 
-# Note
-The website is now added with ads and other stuffs. If you want to use the source code for education purposes, use the [last stable commit](https://github.com/napthedev/filmhot/tree/080a671feef20ed83bfa11da2ca4bda780162fa3)
+## Movie sources
+
+From LokLok App.  
+I have created a documentation on how to leak their api: [https://documenter.getpostman.com/view/18986031/UVXdNeFD](https://documenter.getpostman.com/view/18986031/UVXdNeFD)
+
+## Main technology used
+
+- Nextjs, React, Typescript, Tailwind
+- trpc
+- Supabase (authentication, comment)
+- Swiper (slider)
+- react-infinite-scroll-component (Infinite loading)
+
+## Features
+
+- Full HD movies with subtitles in many languages
+- Suggested movies
+- Top searches
+- Search by name
+- Watch history
+- Comments (require authentication using google, facebook)
+
+## Installation
+
+- Clone the Project
+- Setup supabase: see [readme](/supabase/README.md)
+- Setup google analytics (optional)
+
+## Deployment
+
+- Create a new project on the vercel dashboard
+- Go to settings -> serverless function -> change the region to "Sydney, Australia"
+- Redeploy the project
+
+## Screenshots, Preview
+
+![Screenshot 1](https://res.cloudinary.com/naptest/image/upload/v1641805138/filmhot/filmhot_npivh7.jpg)
+![Screenshot 2](https://res.cloudinary.com/naptest/image/upload/v1641805139/filmhot/filmhot-2_wprbaq.jpg)
+
+## Summary
+
+### 👉 If you like this project, give it a star ✨ and share 👨🏻‍💻 it to your friends 👈

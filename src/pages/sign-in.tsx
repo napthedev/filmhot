@@ -34,7 +34,7 @@ const SignIn: FC = () => {
     <>
       <Meta
         title="Sign in - Filmhot"
-        description="FilmHot - Rapid Movie / Anime Watching Website"
+        description="FilmHot - AdFree Movie / Anime Watching Website"
         image="/preview.png"
       />
       <div className="min-h-screen w-screen bg-[url('/bg.png')] bg-no-repeat bg-cover bg-center">

@@ -29,7 +29,6 @@
     "react-lazy-load-image-component": "^1.5.5",
     "react-query": "3",
     "react-tuby": "^0.1.24",
-    "sharp": "^0.31.0",
     "subtitle-converter": "^3.0.11",
     "superjson": "^1.9.1",
     "swiper": "^8.3.2",
